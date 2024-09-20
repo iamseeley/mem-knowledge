@@ -1,0 +1,699 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Driver for the Oura V2 API",
+        "actions": [
+          {
+            "name": "configure",
+            "description": "Add an Oura personal access token",
+            "type": "Void",
+            "params": [
+              {
+                "name": "personalAccessToken",
+                "type": "String",
+                "description": "Your personal access token from https://cloud.ouraring.com/personal-access-tokens/new"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Status of the Oura driver"
+          },
+          {
+            "name": "dailySleep",
+            "type": "DailySleepCollection",
+            "description": "Collection of daily sleep data"
+          },
+          {
+            "name": "dailyActivity",
+            "type": "DailyActivityCollection",
+            "description": "Collection of daily activity data"
+          },
+          {
+            "name": "dailyReadiness",
+            "type": "DailyReadinessCollection",
+            "description": "Collection of daily readiness data"
+          },
+          {
+            "name": "dailyStress",
+            "type": "DailyStressCollection",
+            "description": "Collection of daily stress data"
+          }
+        ],
+        "events": [
+          {
+            "name": "statusChanged",
+            "type": "Void",
+            "description": "Event emitted when the status of the Oura driver updates"
+          }
+        ]
+      },
+      {
+        "name": "DailySleepCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "DailySleep",
+            "description": "Get a single daily sleep record",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "DailySleepPage",
+            "description": "Get a page of daily sleep records",
+            "params": [
+              {
+                "name": "startDate",
+                "type": "String",
+                "description": "The start date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "endDate",
+                "type": "String",
+                "description": "The end date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "page",
+                "type": "Int",
+                "description": "The page number to retrieve",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "description": "The number of records per page",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DailySleepPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "description": "A list of daily sleep records",
+            "ofType": "DailySleep"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "description": "The next page of daily sleep records",
+            "ofType": "DailySleepPage"
+          }
+        ]
+      },
+      {
+        "name": "DailySleep",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier for this record"
+          },
+          {
+            "name": "day",
+            "type": "String",
+            "description": "The day this data is for",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "score",
+            "type": "Int",
+            "description": "The sleep score",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "String",
+            "description": "The timestamp of the record"
+          },
+          {
+            "name": "contributors",
+            "type": "SleepContributors",
+            "ofType": "SleepContributors",
+            "description": "Daily sleep metrics like deep sleep, REM sleep, and latency"
+          }
+        ]
+      },
+      {
+        "name": "SleepContributors",
+        "fields": [
+          {
+            "name": "deep_sleep",
+            "type": "Int",
+            "description": "Deep sleep score for the night"
+          },
+          {
+            "name": "efficiency",
+            "type": "Int",
+            "description": "Sleep efficiency score"
+          },
+          {
+            "name": "latency",
+            "type": "Int",
+            "description": "Sleep latency score"
+          },
+          {
+            "name": "rem_sleep",
+            "type": "Int",
+            "description": "REM sleep score for the night"
+          },
+          {
+            "name": "restfulness",
+            "type": "Int",
+            "description": "Sleep restfulness score"
+          },
+          {
+            "name": "timing",
+            "type": "Int",
+            "description": "Sleep timing score"
+          },
+          {
+            "name": "total_sleep",
+            "type": "Int",
+            "description": "Total sleep score"
+          }
+        ]
+      },
+      {
+        "name": "DailyActivityCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "DailyActivity",
+            "description": "Get a single daily activity record",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "DailyActivityPage",
+            "description": "Get a page of daily activity records",
+            "params": [
+              {
+                "name": "startDate",
+                "type": "String",
+                "description": "The start date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "endDate",
+                "type": "String",
+                "description": "The end date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "page",
+                "type": "Int",
+                "description": "The page number to retrieve",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "description": "The number of records per page",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DailyActivityPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "description": "A list of daily activity records",
+            "ofType": "DailyActivity"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "description": "The next page of daily activity records",
+            "ofType": "DailyActivityPage"
+          }
+        ]
+      },
+      {
+        "name": "DailyActivity",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier for this record"
+          },
+          {
+            "name": "class_5_min",
+            "type": "String",
+            "description": "The activity class for a 5 minute interval"
+          },
+          {
+            "name": "score",
+            "type": "Int",
+            "description": "The activity score",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "active_calories",
+            "type": "Int",
+            "description": "The number of active calories burned"
+          },
+          {
+            "name": "average_met_minutes",
+            "type": "Float",
+            "description": "The average MET minutes"
+          },
+          {
+            "name": "contributors",
+            "type": "ActivityContributors",
+            "description": "Daily activity metrics like training frequency and recovery time"
+          },
+          {
+            "name": "equivalent_walking_distance",
+            "type": "Int",
+            "description": "The equivalent walking distance"
+          },
+          {
+            "name": "high_activity_met_minutes",
+            "type": "Int",
+            "description": "The number of high activity MET minutes"
+          },
+          {
+            "name": "high_activity_time",
+            "type": "Int",
+            "description": "The duration of high activity"
+          },
+          {
+            "name": "inactivity_alerts",
+            "type": "Int",
+            "description": "The number of inactivity alerts"
+          },
+          {
+            "name": "low_activity_met_minutes",
+            "type": "Int",
+            "description": "The number of low activity MET minutes"
+          },
+          {
+            "name": "low_activity_time",
+            "type": "Int",
+            "description": "The duration of low activity"
+          },
+          {
+            "name": "medium_activity_met_minutes",
+            "type": "Int",
+            "description": "The number of medium activity MET minutes"
+          },
+          {
+            "name": "medium_activity_time",
+            "type": "Int",
+            "description": "The duration of medium activity"
+          },
+          {
+            "name": "met",
+            "type": "Json",
+            "description": "The MET (Metabolic Equivalent of Task) values"
+          },
+          {
+            "name": "meters_to_target",
+            "type": "Int",
+            "description": "The number of meters to reach the target"
+          },
+          {
+            "name": "non_wear_time",
+            "type": "Int",
+            "description": "The duration of non-wear time"
+          },
+          {
+            "name": "resting_time",
+            "type": "Int",
+            "description": "The duration of resting time"
+          },
+          {
+            "name": "sedentary_met_minutes",
+            "type": "Int",
+            "description": "The number of sedentary MET minutes"
+          },
+          {
+            "name": "sedentary_time",
+            "type": "Int",
+            "description": "The duration of sedentary time"
+          },
+          {
+            "name": "steps",
+            "type": "Int",
+            "description": "The number of steps"
+          },
+          {
+            "name": "target_calories",
+            "type": "Int",
+            "description": "The target number of calories"
+          },
+          {
+            "name": "target_meters",
+            "type": "Int",
+            "description": "The target number of meters"
+          },
+          {
+            "name": "total_calories",
+            "type": "Int",
+            "description": "The total number of calories burned"
+          },
+          {
+            "name": "day",
+            "type": "String",
+            "description": "The day this data is for",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "timestamp",
+            "type": "String",
+            "description": "The timestamp of the record"
+          }
+        ]
+      },
+      {
+        "name": "ActivityContributors",
+        "fields": [
+          {
+            "name": "meet_daily_targets",
+            "type": "Int",
+            "description": "The number of times daily targets were met"
+          },
+          {
+            "name": "move_every_hour",
+            "type": "Int",
+            "description": "The number of times movement occurred every hour"
+          },
+          {
+            "name": "recovery_time",
+            "type": "Int",
+            "description": "The recovery time"
+          },
+          {
+            "name": "stay_active",
+            "type": "Int",
+            "description": "The number of times staying active"
+          },
+          {
+            "name": "training_frequency",
+            "type": "Int",
+            "description": "The frequency of training"
+          },
+          {
+            "name": "training_volume",
+            "type": "Int",
+            "description": "The volume of training"
+          }
+        ]
+      },
+      {
+        "name": "DailyReadinessCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "DailyReadiness",
+            "description": "Get a single daily readiness record",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "DailyReadinessPage",
+            "description": "Get a page of daily readiness records",
+            "params": [
+              {
+                "name": "startDate",
+                "type": "String",
+                "description": "The start date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "endDate",
+                "type": "String",
+                "description": "The end date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "page",
+                "type": "Int",
+                "description": "The page number to retrieve",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "description": "The number of records per page",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": []
+      },
+      {
+        "name": "DailyReadinessPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "DailyReadiness",
+            "description": "A list of daily readiness records"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DailyReadinessPage",
+            "description": "The next page of daily readiness records"
+          }
+        ]
+      },
+      {
+        "name": "DailyReadiness",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier for this record"
+          },
+          {
+            "name": "contributors",
+            "type": "ReadinessContributors",
+            "ofType": "ReadinessContributors",
+            "description": "Daily readiness metrics like resting heart rate and body temperature"
+          },
+          {
+            "name": "day",
+            "type": "String",
+            "description": "The day this data is for",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "score",
+            "type": "Int",
+            "description": "The readiness score",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "temperature_deviation",
+            "type": "Float",
+            "description": "The deviation of temperature"
+          },
+          {
+            "name": "temperature_trend_deviation",
+            "type": "Float",
+            "description": "The deviation of temperature trend"
+          },
+          {
+            "name": "timestamp",
+            "type": "String",
+            "description": "The timestamp of the record"
+          }
+        ]
+      },
+      {
+        "name": "ReadinessContributors",
+        "fields": [
+          {
+            "name": "activity_balance",
+            "type": "Int",
+            "description": "The balance of activity"
+          },
+          {
+            "name": "body_temperature",
+            "type": "Int",
+            "description": "The body temperature"
+          },
+          {
+            "name": "hrv_balance",
+            "type": "Int",
+            "description": "The balance of heart rate variability"
+          },
+          {
+            "name": "previous_day_activity",
+            "type": "Int",
+            "description": "The activity of the previous day"
+          },
+          {
+            "name": "previous_night",
+            "type": "Int",
+            "description": "The activity of the previous night"
+          },
+          {
+            "name": "recovery_index",
+            "type": "Int",
+            "description": "The recovery index"
+          },
+          {
+            "name": "resting_heart_rate",
+            "type": "Int",
+            "description": "The resting heart rate"
+          },
+          {
+            "name": "sleep_balance",
+            "type": "Int",
+            "description": "The balance of sleep"
+          }
+        ]
+      },
+      {
+        "name": "DailyStressCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "DailyStress",
+            "description": "Get a single daily stress record",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "DailyStressPage",
+            "description": "Get a page of daily stress records",
+            "params": [
+              {
+                "name": "startDate",
+                "type": "String",
+                "description": "The start date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "endDate",
+                "type": "String",
+                "description": "The end date of the range to retrieve",
+                "optional": true
+              },
+              {
+                "name": "page",
+                "type": "Int",
+                "description": "The page number to retrieve",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "description": "The number of records per page",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DailyStressPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "DailyStress",
+            "description": "A list of daily stress records"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DailyStressPage",
+            "description": "The next page of daily stress records"
+          }
+        ]
+      },
+      {
+        "name": "DailyStress",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier for this record"
+          },
+          {
+            "name": "day",
+            "type": "String",
+            "description": "The day this data is for",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "stress_high",
+            "type": "Int",
+            "description": "The high stress score",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "recovery_high",
+            "description": "The high recovery score",
+            "type": "Int"
+          },
+          {
+            "name": "day_summary",
+            "description": "The summary of the day",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

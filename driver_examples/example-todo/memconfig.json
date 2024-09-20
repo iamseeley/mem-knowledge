@@ -1,0 +1,179 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Create and manage a TO-DO list using Membrane",
+        "fields": [
+          {
+            "name": "one",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int",
+                "description": "The ID of the task.",
+                "optional": false
+              }
+            ],
+            "type": "Task",
+            "description": "A single task"
+          },
+          {
+            "name": "page",
+            "type": "TaskPage",
+            "description": "A page of tasks"
+          },
+          {
+            "name": "tests",
+            "type": "Tests"
+          }
+        ],
+        "actions": [
+          {
+            "name": "add",
+            "description": "Add a new task to the list",
+            "type": "Int",
+            "params": [
+              {
+                "name": "title",
+                "type": "String",
+                "description": "The title of the new task",
+                "optional": false
+              },
+              {
+                "name": "dueDate",
+                "type": "String",
+                "description": "The due date of the new task",
+                "optional": false
+              }
+            ]
+          },
+          {
+            "name": "deleteCompleted",
+            "description": "Delete all completed tasks from the list",
+            "type": "Void",
+            "params": []
+          },
+          {
+            "name": "deleteAllTasks",
+            "description": "Delete all tasks from the list",
+            "type": "Void",
+            "params": []
+          }
+        ]
+      },
+      {
+        "name": "Task",
+        "fields": [
+          {
+            "name": "id",
+            "type": "Int",
+            "description": "The ID of the task"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The title of the task"
+          },
+          {
+            "name": "dueDate",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The due date of the task"
+          },
+          {
+            "name": "isCompleted",
+            "type": "Boolean",
+            "hints": {},
+            "description": "Whether the task has been completed or not"
+          }
+        ],
+        "actions": [
+          {
+            "name": "update",
+            "description": "Update the task with new information",
+            "type": "Void",
+            "params": [
+              {
+                "name": "title",
+                "type": "String",
+                "description": "The new title of the task",
+                "optional": false
+              },
+              {
+                "name": "dueDate",
+                "type": "String",
+                "description": "The new due date of the task",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "remove",
+            "description": "Remove the task from the list",
+            "type": "Void"
+          },
+          {
+            "name": "completed",
+            "description": "Marking task as completed",
+            "type": "Boolean"
+          }
+        ]
+      },
+      {
+        "name": "TaskPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Task",
+            "description": "The list of tasks on this page"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "TaskPage",
+            "description": "A reference to the next page of tasks"
+          }
+        ],
+        "description": "A page of tasks"
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testCreateTask",
+            "type": "Boolean"
+          },
+          {
+            "name": "testDeleteAllTask",
+            "type": "Boolean"
+          },
+          {
+            "name": "testDeleteCompleted",
+            "type": "Boolean"
+          },
+          {
+            "name": "testUpdateTask",
+            "type": "Boolean"
+          },
+          {
+            "name": "testCompleteTask",
+            "type": "Boolean"
+          },
+          {
+            "name": "testDeleteTask",
+            "type": "Boolean"
+          }
+        ],
+        "fields": []
+      }
+    ]
+  },
+  "dependencies": {}
+}

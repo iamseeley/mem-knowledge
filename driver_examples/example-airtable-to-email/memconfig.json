@@ -1,0 +1,24 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Example of a Program for sending an email when a table in an Airtable is modified.",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void"
+          },
+          {
+            "name": "tableChanged",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "table": "airtable:tables.one(id:\"<TABLEID>\")",
+    "email": "email:"
+  }
+}

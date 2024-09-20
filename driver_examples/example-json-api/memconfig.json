@@ -1,0 +1,24 @@
+{
+  "tags": ["example", "json", "api"],
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Simple REST API to store and retrieve arbitrary JSON objects based on path.",
+        "actions": [],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ],
+        "events": [
+          {
+            "name": "statusChanged",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  }
+}

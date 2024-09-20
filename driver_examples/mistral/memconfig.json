@@ -1,0 +1,117 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "apiKey",
+                "type": "String"
+              }
+            ],
+            "description": "Configures the Mistral API integration with the provided API key."
+          },
+          {
+            "name": "complete",
+            "type": "String",
+            "params": [
+              {
+                "name": "model",
+                "type": "String",
+                "description": "ID of the Mistral model to use.",
+                "optional": true
+              },
+              {
+                "name": "prompt",
+                "description": "The prompt to generate completions for.",
+                "type": "String"
+              },
+              {
+                "name": "temperature",
+                "type": "Float",
+                "description": "The sampling temperature to use, between 0.0 and 1.0.",
+                "optional": true
+              },
+              {
+                "name": "max_tokens",
+                "type": "Integer",
+                "description": "The maximum number of tokens to generate.",
+                "optional": true
+              },
+              {
+                "name": "top_p",
+                "type": "Float",
+                "description": "Nucleus sampling, where the model considers the results of the tokens with top_p probability mass.",
+                "optional": true
+              },
+              {
+                "name": "stream",
+                "type": "Boolean",
+                "description": "Whether to stream back partial progress.",
+                "optional": true
+              },
+              {
+                "name": "safe_mode",
+                "type": "Boolean",
+                "description": "Whether to enable safe mode, which adds a penalty to tokens that would cause the model to produce unsafe outputs.",
+                "optional": true
+              },
+              {
+                "name": "random_seed",
+                "type": "Integer",
+                "description": "An optional integer seed to use for random sampling.",
+                "optional": true
+              }
+            ],
+            "description": "Generates completions for the given prompt using the Mistral model."
+          },
+          {
+            "name": "createEmbeddings",
+            "type": "Json",
+            "description": "Creates embeddings for a list of texts using the specified Mistral model.",
+            "params": [
+              {
+                "name": "model",
+                "type": "String",
+                "description": "ID of the Mistral model to use.",
+                "optional": false
+              },
+              {
+                "name": "input",
+                "type": "Json",
+                "description": "The list of strings to embed.",
+                "optional": false
+              },
+              {
+                "name": "encoding_format",
+                "type": "String",
+                "description": "The format of the output data.",
+                "optional": false
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The status of the Mistral driver."
+          },
+          {
+            "name": "models",
+            "type": "Json",
+            "description": "The available Mistral models."
+          }
+        ],
+        "description": "A driver for integrating with the Mistral API"
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

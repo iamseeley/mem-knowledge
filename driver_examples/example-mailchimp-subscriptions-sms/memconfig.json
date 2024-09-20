@@ -1,0 +1,30 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "audienceId",
+                "description": "The Mailchimp audience ID",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "handler",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "sms": "sms:",
+    "audiences": "mailchimp:audiences"
+  }
+}

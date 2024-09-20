@@ -1,0 +1,118 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void"
+          },
+          {
+            "name": "start",
+            "type": "Ref",
+            "params": [
+              {
+                "name": "objetive",
+                "type": "String"
+              },
+              {
+                "name": "context",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "additionalPrompt",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "ofType": "Task"
+          }
+        ],
+        "fields": [
+          {
+            "name": "task",
+            "type": "Task",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Task",
+        "fields": [
+          {
+            "name": "objetive",
+            "type": "String"
+          },
+          {
+            "name": "result",
+            "type": "String"
+          },
+          {
+            "name": "pendingQuestion",
+            "type": "String"
+          },
+          {
+            "name": "id",
+            "type": "Int"
+          }
+        ],
+        "events": [
+          {
+            "name": "onResult",
+            "type": "TaskEvent"
+          }
+        ],
+        "actions": [
+          {
+            "name": "answer",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "start",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "additionalPrompt",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "TaskEvent",
+        "fields": [
+          {
+            "name": "task",
+            "type": "Ref",
+            "ofType": "Task"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "openai": "openai:",
+    "github": "github:",
+    "meta": "meta-driver:"
+  }
+}

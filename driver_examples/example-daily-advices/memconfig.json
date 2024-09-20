@@ -1,0 +1,26 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "description": "Configure the daily advice program"
+          },
+          {
+            "name": "sendAdvice",
+            "type": "Void",
+            "description": "Send out the daily advice"
+          }
+        ],
+        "description": "example of a program to send daily advices."
+      }
+    ]
+  },
+  "dependencies": {
+    "openai": "openai:",
+    "email": "email:"
+  }
+}

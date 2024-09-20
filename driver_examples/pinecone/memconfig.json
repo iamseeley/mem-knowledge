@@ -1,0 +1,301 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "token",
+                "type": "String",
+                "description": "API access token for authenticating with the Pinecone service."
+              },
+              {
+                "name": "environment",
+                "type": "String",
+                "description": "The Pinecone environment to connect to ('default' if not specified)."
+              }
+            ],
+            "description": "Configures the Pinecone connection with a provided API token and optional environment setting."
+          }
+        ],
+        "fields": [
+          {
+            "name": "indexes",
+            "type": "IndexCollection",
+            "description": "Collection of Pinecone index configurations."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The current status of the Pinecone service connection."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "A set of test utilities for the Pinecone indexes."
+          }
+        ],
+        "description": "Manages interactions with the Pinecone database service."
+      },
+      {
+        "name": "IndexCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Index",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              }
+            ],
+            "description": "Retrieves a single Pinecone index by name"
+          },
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Index",
+            "description": "A list of Pinecone indices"
+          }
+        ],
+        "actions": [
+          {
+            "name": "create",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "description": "The name for the new Pinecone index"
+              },
+              {
+                "name": "dimension",
+                "type": "Int",
+                "description": "The dimension of vectors that the Pinecone index will store"
+              },
+              {
+                "name": "metric",
+                "type": "String",
+                "description": "The metric type for the Pinecone index (e.g., 'cosine', 'euclidean')"
+              },
+              {
+                "name": "replicas",
+                "type": "Int",
+                "description": "The number of replicas for the Pinecone index"
+              },
+              {
+                "name": "pod_type",
+                "type": "String",
+                "description": "The type of pod for the Pinecone index"
+              },
+              {
+                "name": "metadata_config",
+                "type": "String",
+                "description": "The metadata configuration for the Pinecone index"
+              },
+              {
+                "name": "source_collection",
+                "type": "String",
+                "description": "The source collection for the Pinecone index"
+              },
+              {
+                "name": "pods",
+                "type": "Int",
+                "description": "The number of pods to allocate for the Pinecone index"
+              }
+            ],
+            "description": "Creates a new Pinecone index with specified parameters"
+          }
+        ],
+        "description": "Collection of Pinecone indices"
+      },
+      {
+        "name": "Index",
+        "fields": [
+          {
+            "name": "database",
+            "type": "Database",
+            "description": "Reference to the associated Pinecone Database."
+          },
+          {
+            "name": "status",
+            "type": "Status",
+            "description": "Current status of the Index in the Pinecone database."
+          }
+        ],
+        "actions": [
+          {
+            "name": "query",
+            "type": "String",
+            "params": [
+              {
+                "name": "namespace",
+                "type": "String",
+                "optional": true,
+                "description": "The namespace to which the query is scoped."
+              },
+              {
+                "name": "id",
+                "type": "String",
+                "optional": true,
+                "description": "Unique identifier for a specific entry within the namespace."
+              },
+              {
+                "name": "top_k",
+                "type": "Int",
+                "optional": true,
+                "description": "The number of top matching vectors to return."
+              },
+              {
+                "name": "includeValues",
+                "type": "Boolean",
+                "optional": true,
+                "description": "Specifies whether to include the values of the vectors in the response."
+              },
+              {
+                "name": "includeMetadata",
+                "type": "Boolean",
+                "optional": true,
+                "description": "Specifies whether to include metadata for the vectors in the response."
+              },
+              {
+                "name": "vector",
+                "type": "String",
+                "optional": true,
+                "description": "The vector to be used for the query."
+              },
+              {
+                "name": "filter",
+                "type": "String",
+                "optional": true,
+                "description": "The filter to apply to the query results."
+              },
+              {
+                "name": "sparceVector",
+                "type": "String",
+                "optional": true,
+                "description": "The sparse vector format used to represent vectors with a lot of zero values."
+              }
+            ],
+            "description": "Executes a query against a Pinecone Index and retrieves matching entries."
+          },
+          {
+            "name": "upsert",
+            "type": "Void",
+            "params": [
+              {
+                "name": "namespace",
+                "type": "String",
+                "optional": true,
+                "description": "The namespace within the Index where vectors will be inserted or updated."
+              },
+              {
+                "name": "vectors",
+                "type": "String",
+                "optional": true,
+                "description": "A JSON string containing the vectors to insert or update."
+              }
+            ],
+            "description": "Inserts or updates vectors in the Pinecone Index."
+          }
+        ],
+        "description": "Represents an Index in Pinecone database."
+      },
+      {
+        "name": "Database",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "description": "The name assigned to the Pinecone database."
+          },
+          {
+            "name": "metric",
+            "type": "String",
+            "description": "The metric type used for vector search within the database."
+          },
+          {
+            "name": "dimension",
+            "type": "Int",
+            "description": "The number of dimensions for the vectors indexed in the database."
+          },
+          {
+            "name": "replicas",
+            "type": "Int",
+            "description": "The number of replicas of the database for high availability."
+          },
+          {
+            "name": "shards",
+            "type": "Int",
+            "description": "The number of shards to distribute the database index across."
+          },
+          {
+            "name": "pods",
+            "type": "Int",
+            "description": "The number of pods allocated for the database in a Kubernetes environment."
+          },
+          {
+            "name": "pod_type",
+            "type": "String",
+            "description": "The type of pods used by the Pinecone database service."
+          }
+        ],
+        "description": "Represents a Pinecone database configuration."
+      },
+      {
+        "name": "Status",
+        "fields": [
+          {
+            "name": "waiting",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of operations that are pending execution."
+          },
+          {
+            "name": "crashed",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of operations that have encountered errors and stopped unexpectedly."
+          },
+          {
+            "name": "host",
+            "type": "String",
+            "description": "The host address of the Pinecone service."
+          },
+          {
+            "name": "port",
+            "type": "Int",
+            "description": "The port number on which the Pinecone service is available."
+          },
+          {
+            "name": "state",
+            "type": "String",
+            "description": "The current state of the Pinecone service, such as 'running' or 'stopped'."
+          },
+          {
+            "name": "ready",
+            "type": "Boolean",
+            "description": "Boolean flag indicating whether the Pinecone service is ready to process requests."
+          }
+        ],
+        "description": "Represents the current status and operational information of the Pinecone service."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetDatabases",
+            "type": "Boolean"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

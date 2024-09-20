@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Check the daily weather to send SMS when rain is comming.",
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": []
+          },
+          {
+            "name": "checkWeather",
+            "type": "Void"
+          }
+        ],
+        "events": []
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "sms": "sms:",
+    "weather": "weather:weather"
+  }
+}

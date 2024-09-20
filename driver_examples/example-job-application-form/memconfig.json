@@ -1,0 +1,23 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Uses forms to collect data.",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void"
+          },
+          {
+            "name": "handler",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "forms": "forms:"
+  }
+}

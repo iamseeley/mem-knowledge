@@ -1,0 +1,10 @@
+{
+  "name": "membrane-driver-google-sheets",
+  "version": "0.0.1",
+  "description": "Google Sheets driver for Membrane",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@badgateway/oauth2-client": "^2.4.1"
+  }
+}

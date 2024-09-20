@@ -1,0 +1,381 @@
+{
+  "expressions": {
+    "block": {
+      "description": "Block",
+      "type": "text",
+      "searchIn": "https://www.notion.so",
+      "regex": "data-block-id=\"([0-9a-z-]+)\""
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Driver for interacting with Notion API",
+        "fields": [
+          {
+            "name": "blocks",
+            "type": "BlockCollection",
+            "description": "Collection of Notion blocks"
+          },
+          {
+            "name": "databases",
+            "type": "DatabaseCollection",
+            "description": "Collection of Notion databases"
+          },
+          {
+            "name": "pages",
+            "type": "PageCollection",
+            "description": "Collection of Notion pages"
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "description": "Collection of Notion users"
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Status of the Notion driver"
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "ofType": {
+              "type": "Ref",
+              "ofType": "String"
+            },
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "Parse the provided data with the given parameters"
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Tests for the Notion driver"
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "token",
+                "type": "String"
+              }
+            ],
+            "description": "Configure the Notion driver with the provided token"
+          }
+        ],
+        "events": []
+      },
+      {
+        "name": "Block",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Block",
+            "description": "Reference to the parent block."
+          },
+          {
+            "name": "created_time",
+            "type": "String",
+            "description": "The timestamp when the block was created."
+          },
+          {
+            "name": "has_children",
+            "type": "Boolean",
+            "description": "Indicates whether the block has children."
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the block."
+          },
+          {
+            "name": "last_edited_time",
+            "type": "String",
+            "description": "The timestamp when the block was last edited."
+          },
+          {
+            "name": "object",
+            "type": "String",
+            "description": "The type of object represented by the block."
+          },
+          {
+            "name": "paragraph",
+            "type": "String",
+            "description": "The content of the block when it represents a paragraph."
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "The type of the block."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a block in Notion."
+      },
+      {
+        "name": "Database",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Database",
+            "description": "Reference to another Notion database."
+          },
+          {
+            "name": "created_time",
+            "type": "String",
+            "description": "The time when the database was created."
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the database."
+          },
+          {
+            "name": "last_edited_time",
+            "type": "String",
+            "description": "The time when the database was last edited."
+          },
+          {
+            "name": "object",
+            "type": "String",
+            "description": "The type of object represented by the database."
+          },
+          {
+            "name": "properties",
+            "type": "String",
+            "description": "The properties of the database."
+          },
+          {
+            "name": "title",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "The title of the database."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Represents a single Notion database item"
+      },
+      {
+        "name": "Page",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Page",
+            "description": "Reference to another Notion page."
+          },
+          {
+            "name": "archived",
+            "type": "Boolean",
+            "description": "Indicates whether the page is archived."
+          },
+          {
+            "name": "created_time",
+            "type": "String",
+            "description": "Timestamp indicating the creation time of the page."
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier for the page."
+          },
+          {
+            "name": "last_edited_time",
+            "type": "String",
+            "description": "Timestamp indicating the last edit time of the page."
+          },
+          {
+            "name": "object",
+            "type": "String",
+            "description": "Type of object represented by the page."
+          },
+          {
+            "name": "parent",
+            "type": "String",
+            "description": "Parent page of the current page."
+          },
+          {
+            "name": "properties",
+            "type": "String",
+            "description": "Properties of the Notion page."
+          }
+        ],
+        "actions": [
+          {
+            "name": "appendBlock",
+            "type": "Void",
+            "params": [
+              {
+                "name": "children",
+                "type": "Json",
+                "description": "The content to be appended to the page."
+              }
+            ],
+            "description": "Appends a block to the page."
+          }
+        ],
+        "events": [],
+        "description": "Type representing a Notion page."
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "User",
+            "description": "Reference to another user in Notion"
+          },
+          {
+            "name": "avatar_url",
+            "type": "String",
+            "description": "URL of the user's avatar"
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier of the user"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Name of the user in Notion"
+          },
+          {
+            "name": "object",
+            "type": "String",
+            "description": "Object type associated with the user"
+          },
+          {
+            "name": "person",
+            "type": "String",
+            "description": "Person type associated with the user"
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "Type of the user"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a user in Notion"
+      },
+      {
+        "name": "BlockCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Block",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "ID of the Notion block item"
+              }
+            ],
+            "description": "Notion block item"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Notion block items"
+      },
+      {
+        "name": "DatabaseCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Database",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Notion database items"
+      },
+      {
+        "name": "PageCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Page",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "ID of the Notion page"
+              }
+            ],
+            "description": "Represents a single Notion page"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Notion pages"
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "ID of the Notion user"
+              }
+            ],
+            "description": "Notion user details"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Notion users"
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testSearchEndpoint",
+            "type": "Boolean"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

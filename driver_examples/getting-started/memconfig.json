@@ -1,0 +1,34 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Learn Membrane by doing with this interactive tutorial program.",
+        "actions": [
+          {
+            "name": "run",
+            "type": "Void"
+          },
+          {
+            "name": "ping",
+            "type": "Void"
+          },
+          {
+            "name": "getGitHubProfile",
+            "type": "Void"
+          }
+        ],
+        "fields": [
+          {
+            "name": "progress",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "email": "email:",
+    "sms": "sms:"
+  }
+}

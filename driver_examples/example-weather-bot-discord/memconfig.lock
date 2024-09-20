@@ -1,0 +1,4364 @@
+{
+  "types": {
+    "weather": {
+      "gref_hash": "c32719a8316933d51a4b90f53f3dad3ea471926b17e56ac62fc631dd30316f5a",
+      "type": "weather:Root"
+    },
+    "discord": {
+      "gref_hash": "49d2057ce3f51194c1ea062e26fce02a29c029f411ef96f5d4b29005fdc745cb",
+      "type": "discord:Root"
+    }
+  },
+  "imports": [
+    {
+      "name": "discord",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "clientId",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "clientSecret",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "publicKey",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "token",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "endpoint",
+                "description": "",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "method",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "body",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "path",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "query",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "headers",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "followUpWebhook",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "application_id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "token",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "Json",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "guilds",
+                "description": "",
+                "type": "GuildCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "me",
+                "description": "",
+                "type": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "users",
+                "description": "",
+                "type": "UserCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "parse",
+                "description": "",
+                "type": "List",
+                "ofType": {
+                  "type": "Ref",
+                  "ofType": "Guild"
+                },
+                "params": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "value",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              },
+              {
+                "name": "status",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Root",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "MemberCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Member",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "page",
+                "description": "",
+                "type": "MemberPage",
+                "params": [
+                  {
+                    "name": "limit",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "after",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "MemberCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "MemberPage",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Member",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "next",
+                "description": "",
+                "type": "Ref",
+                "ofType": "MemberPage",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "MemberPage",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "CommandCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Command",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Command",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "CommandCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "UserCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "User",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "UserCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "GuildCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Guild",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Guild",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "GuildCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Guild",
+            "description": "",
+            "actions": [
+              {
+                "name": "createCommand",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "name",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "description",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "options",
+                    "description": "JSON string of Application Command Option Structure",
+                    "type": "Json",
+                    "optional": true
+                  },
+                  {
+                    "name": "type",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "icon",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "owner",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "permissions",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "features",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "channels",
+                "description": "",
+                "type": "ChannelCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "commands",
+                "description": "",
+                "type": "CommandCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "members",
+                "description": "",
+                "type": "MemberCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Guild",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": [
+              {
+                "name": "onSlashCommand",
+                "description": "",
+                "type": "SlashCommand",
+                "params": [],
+                "hints": {}
+              }
+            ]
+          },
+          {
+            "name": "ChannelCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Channel",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Channel",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "ChannelCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "MessageCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Message",
+                "params": [
+                  {
+                    "name": "id",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Message",
+                "params": [
+                  {
+                    "name": "limit",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "around",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "before",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "after",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "MessageCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Channel",
+            "description": "",
+            "actions": [
+              {
+                "name": "sendMessage",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "content",
+                    "description": "Message contents",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "payload_json",
+                    "description": "JSON-encoded body of non-file params, only for multipart/form-data requests.",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "tts",
+                    "description": "",
+                    "type": "Boolean",
+                    "optional": true
+                  },
+                  {
+                    "name": "flags",
+                    "description": "",
+                    "type": "Int",
+                    "optional": true
+                  },
+                  {
+                    "name": "sticker_ids",
+                    "description": "IDs of up to 3 stickers in the server to send in the message",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "components",
+                    "description": "Array of components to include with the message",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "embeds",
+                    "description": "Embedded rich content (up to 6000 characters)",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "last_message_id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "rate_limit_per_user",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "type",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "position",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "flags",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "nsfw",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "parend_id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "topic",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "guild_id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "permissions_overwrites",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "messages",
+                "description": "",
+                "type": "MessageCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Channel",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Message",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "type",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "content",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "channel_id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pinned",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "mention_everyone",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "tts",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "timestamp",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "edited_timestamp",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "flags",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "author",
+                "description": "",
+                "type": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "attachments",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "embeds",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "mentions",
+                "description": "",
+                "type": "List",
+                "ofType": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "mention_roles",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "reactions",
+                "description": "",
+                "type": "List",
+                "ofType": "Reaction",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Message",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Member",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "user",
+                "description": "",
+                "type": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "nick",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "roles",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "joined_at",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "premium_since",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "deaf",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "mute",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pending",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "avatar",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "flags",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Member",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "User",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "username",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "display_name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "avatar",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "avatar_decoration",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "discriminator",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "public_flags",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "bot",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "User",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Reaction",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "count",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "me",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "emoji",
+                "description": "",
+                "type": "Emoji",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Reaction",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Command",
+            "description": "",
+            "actions": [
+              {
+                "name": "delete",
+                "description": "",
+                "type": "Void",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "fields": [
+              {
+                "name": "name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "description",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "default_member_permissions",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "default_permission",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "type",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "nsfw",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Command",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Emoji",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "user",
+                "description": "",
+                "type": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "animated",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "available",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "require_colons",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "managed",
+                "description": "",
+                "type": "Boolean",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "roles",
+                "description": "",
+                "type": "List",
+                "ofType": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Emoji",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "SlashCommand",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "user",
+                "description": "",
+                "type": "User",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "application_id",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "token",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "options",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "SlashCommand",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "CommandOption",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "name",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "type",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "value",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "CommandOption",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": [
+          {
+            "name": "http",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "Make HTTP requests",
+                  "actions": [
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "endpoint",
+                      "description": "The endpoint action",
+                      "type": "String",
+                      "params": [
+                        {
+                          "name": "method",
+                          "description": "HTTP method",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "path",
+                          "description": "HTTP path",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "query",
+                          "description": "HTTP query string, encoded as JSON",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "headers",
+                          "description": "HTTP headers, encoded as JSON",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "body",
+                          "description": "HTTP body, if any",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {
+                        "hidden": true
+                      }
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "status",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "authenticated",
+                      "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                      "type": "Authenticated",
+                      "params": [
+                        {
+                          "name": "api",
+                          "description": "The API to use. Check https://www.membrane.io/docs for a list of APIs that support this",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "authId",
+                          "description": "An arbitrary gref that uniquely identifies this program.",
+                          "type": "Ref",
+                          "ofType": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Root",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Resource",
+                  "description": "An HTTP response",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "status",
+                      "description": "HTTP status code",
+                      "type": "Int",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "headers",
+                      "description": "HTTP headers returned by server",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "body",
+                      "description": "Body of the request as a string",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Resource",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Authenticated",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "createLink",
+                      "description": "Creates a link to authenticate the user with an API and enable Membrane's Transparent Auth. Valid values for `api`: `google-docs`",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "hasAuthenticated",
+                      "description": "Whether the user has authenticated with this API",
+                      "type": "Boolean",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Authenticated",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": [
+                {
+                  "name": "sys-http",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "authenticated",
+                            "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                            "type": "Authenticated",
+                            "params": [
+                              {
+                                "name": "api",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "authId",
+                                "description": "",
+                                "type": "Ref",
+                                "ofType": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Resource",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "status",
+                            "description": "",
+                            "type": "Int",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "headers",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "body",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Authenticated",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "createLink",
+                            "description": "Creates a link to authenticate the user with this API",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "hasAuthenticated",
+                            "description": "Whether the user has authenticated with this API",
+                            "type": "Boolean",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": "tbd"
+                  }
+                },
+                {
+                  "name": "sys-clock",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "sleep",
+                            "description": "",
+                            "type": "Void",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "Float",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [],
+                        "events": [
+                          {
+                            "name": "timer",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "spec",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "maxCount",
+                                "description": "",
+                                "type": "Int",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "timerAt",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ]
+                      },
+                      {
+                        "name": "TimerEvent",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "id",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                },
+                {
+                  "name": "sys-process",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "endpointUrl",
+                            "description": "Gets the program's own endpoint URL",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                }
+              ]
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "Float",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "spec",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "maxCount",
+                          "description": "",
+                          "type": "Int",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          }
+        ]
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    },
+    {
+      "name": "weather",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "Represents the weather data for a specific location",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "apiKey",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "zipCode",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "countryCode",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "endpoint",
+                "description": "The endpoint action",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "method",
+                    "description": "HTTP method",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "path",
+                    "description": "HTTP path",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "query",
+                    "description": "HTTP query string, encoded as JSON",
+                    "type": "String",
+                    "optional": true
+                  },
+                  {
+                    "name": "headers",
+                    "description": "HTTP headers, encoded as JSON",
+                    "type": "String",
+                    "optional": false
+                  },
+                  {
+                    "name": "body",
+                    "description": "HTTP body, if any",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {
+                  "hidden": true
+                }
+              }
+            ],
+            "fields": [
+              {
+                "name": "weather",
+                "description": "",
+                "type": "Weather",
+                "params": [
+                  {
+                    "name": "units",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "status",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "now",
+                "description": "",
+                "type": "CurrentTemp",
+                "params": [
+                  {
+                    "name": "city",
+                    "description": "",
+                    "type": "String",
+                    "optional": true
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Root",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Weather",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "current",
+                "description": "",
+                "type": "CurrentData",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "minutely",
+                "description": "",
+                "type": "MinutelyCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "hourly",
+                "description": "",
+                "type": "HourlyCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "daily",
+                "description": "",
+                "type": "DailyCollection",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Weather",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "FeelsLike",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "day",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "night",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "eve",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "morn",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "FeelsLike",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "WeatherData",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "id",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "main",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "description",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "icon",
+                "description": "",
+                "type": "String",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "WeatherData",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Rain",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "1h",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Rain",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "CurrentData",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "dt",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sunrise",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sunset",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "temp",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "feels_like",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pressure",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "humidity",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "dew_point",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "clouds",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "uvi",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "visibility",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_speed",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_gust",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_deg",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "rain",
+                "description": "",
+                "type": "Rain",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "snow",
+                "description": "",
+                "type": "Rain",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "weather",
+                "description": "",
+                "type": "List",
+                "ofType": "WeatherData",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "CurrentData",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Temperature",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "day",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "min",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "max",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "night",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "eve",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "morn",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Temperature",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "HourlyCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Hourly",
+                "params": [
+                  {
+                    "name": "dt",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Hourly",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "HourlyCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Hourly",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "dt",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "temp",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "feels_like",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pressure",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "humidity",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "dew_point",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "uvi",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "clouds",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "visibility",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_speed",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_gust",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_deg",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pop",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "rain",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "snow",
+                "description": "",
+                "type": "Rain",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "weather",
+                "description": "",
+                "type": "List",
+                "ofType": "WeatherData",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Hourly",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Daily",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "dt",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sunrise",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sunset",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "moonrise",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "moonset",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "moon_phase",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "temp",
+                "description": "",
+                "type": "Temperature",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "feels_like",
+                "description": "",
+                "type": "FeelsLike",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pressure",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "humidity",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "dew_point",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_speed",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_gust",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "wind_deg",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "clouds",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pop",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "rain",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "snow",
+                "description": "",
+                "type": "Rain",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "uvi",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "weather",
+                "description": "",
+                "type": "List",
+                "ofType": "WeatherData",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Daily",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "Minutely",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "dt",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "precipitation",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {
+                  "primary": true
+                }
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "Minutely",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "MinutelyCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Minutely",
+                "params": [
+                  {
+                    "name": "dt",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Minutely",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "MinutelyCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "DailyCollection",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "one",
+                "description": "",
+                "type": "Daily",
+                "params": [
+                  {
+                    "name": "dt",
+                    "description": "",
+                    "type": "Int",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "items",
+                "description": "",
+                "type": "List",
+                "ofType": "Daily",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "DailyCollection",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          },
+          {
+            "name": "CurrentTemp",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "temp",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "feels_like",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "temp_min",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "temp_max",
+                "description": "",
+                "type": "Float",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "pressure",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "humidity",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "sea_level",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "grnd_level",
+                "description": "",
+                "type": "Int",
+                "params": [],
+                "hints": {}
+              },
+              {
+                "name": "gref",
+                "description": "A reference to this node",
+                "type": "Ref",
+                "ofType": "CurrentTemp",
+                "params": [],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": [
+          {
+            "name": "http",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "Make HTTP requests",
+                  "actions": [
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "endpoint",
+                      "description": "The endpoint action",
+                      "type": "String",
+                      "params": [
+                        {
+                          "name": "method",
+                          "description": "HTTP method",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "path",
+                          "description": "HTTP path",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "query",
+                          "description": "HTTP query string, encoded as JSON",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "headers",
+                          "description": "HTTP headers, encoded as JSON",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "body",
+                          "description": "HTTP body, if any",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {
+                        "hidden": true
+                      }
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "status",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "authenticated",
+                      "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                      "type": "Authenticated",
+                      "params": [
+                        {
+                          "name": "api",
+                          "description": "The API to use. Check https://www.membrane.io/docs for a list of APIs that support this",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "authId",
+                          "description": "An arbitrary gref that uniquely identifies this program.",
+                          "type": "Ref",
+                          "ofType": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Root",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Resource",
+                  "description": "An HTTP response",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "status",
+                      "description": "HTTP status code",
+                      "type": "Int",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "headers",
+                      "description": "HTTP headers returned by server",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "body",
+                      "description": "Body of the request as a string",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Resource",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                },
+                {
+                  "name": "Authenticated",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "createLink",
+                      "description": "Creates a link to authenticate the user with an API and enable Membrane's Transparent Auth. Valid values for `api`: `google-docs`",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "post",
+                      "description": "Performs a POST request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "put",
+                      "description": "Performs a PUT request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "patch",
+                      "description": "Performs a PATCH request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "delete",
+                      "description": "Performs a DELETE request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        },
+                        {
+                          "name": "body",
+                          "description": "",
+                          "type": "String",
+                          "optional": true
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [
+                    {
+                      "name": "get",
+                      "description": "A resource obtained via a GET request",
+                      "type": "Resource",
+                      "params": [
+                        {
+                          "name": "url",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "headers",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "hasAuthenticated",
+                      "description": "Whether the user has authenticated with this API",
+                      "type": "Boolean",
+                      "params": [],
+                      "hints": {}
+                    },
+                    {
+                      "name": "gref",
+                      "description": "A reference to this node",
+                      "type": "Ref",
+                      "ofType": "Authenticated",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": [
+                {
+                  "name": "sys-http",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "authenticated",
+                            "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+                            "type": "Authenticated",
+                            "params": [
+                              {
+                                "name": "api",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "authId",
+                                "description": "",
+                                "type": "Ref",
+                                "ofType": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Resource",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "status",
+                            "description": "",
+                            "type": "Int",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "headers",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "body",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      },
+                      {
+                        "name": "Authenticated",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "createLink",
+                            "description": "Creates a link to authenticate the user with this API",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          },
+                          {
+                            "name": "post",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "put",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "patch",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "delete",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "body",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [
+                          {
+                            "name": "get",
+                            "description": "",
+                            "type": "Resource",
+                            "params": [
+                              {
+                                "name": "url",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "headers",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "hasAuthenticated",
+                            "description": "Whether the user has authenticated with this API",
+                            "type": "Boolean",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": "tbd"
+                  }
+                },
+                {
+                  "name": "sys-clock",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [
+                          {
+                            "name": "sleep",
+                            "description": "",
+                            "type": "Void",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "Float",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ],
+                        "fields": [],
+                        "events": [
+                          {
+                            "name": "timer",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "spec",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "maxCount",
+                                "description": "",
+                                "type": "Int",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          },
+                          {
+                            "name": "timerAt",
+                            "description": "",
+                            "type": "TimerEvent",
+                            "params": [
+                              {
+                                "name": "key",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              },
+                              {
+                                "name": "seconds",
+                                "description": "",
+                                "type": "String",
+                                "optional": false
+                              }
+                            ],
+                            "hints": {}
+                          }
+                        ]
+                      },
+                      {
+                        "name": "TimerEvent",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "id",
+                            "description": "",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                },
+                {
+                  "name": "sys-process",
+                  "schema": {
+                    "types": [
+                      {
+                        "name": "Root",
+                        "description": "",
+                        "actions": [],
+                        "fields": [
+                          {
+                            "name": "endpointUrl",
+                            "description": "Gets the program's own endpoint URL",
+                            "type": "String",
+                            "params": [],
+                            "hints": {}
+                          }
+                        ],
+                        "events": []
+                      }
+                    ],
+                    "imports": []
+                  },
+                  "source": {
+                    "Program": ""
+                  }
+                }
+              ]
+            },
+            "source": {
+              "Program": "tbd"
+            }
+          },
+          {
+            "name": "sys-clock",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [
+                    {
+                      "name": "sleep",
+                      "description": "",
+                      "type": "Void",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "Float",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ],
+                  "fields": [],
+                  "events": [
+                    {
+                      "name": "timer",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "spec",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "maxCount",
+                          "description": "",
+                          "type": "Int",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    },
+                    {
+                      "name": "timerAt",
+                      "description": "",
+                      "type": "TimerEvent",
+                      "params": [
+                        {
+                          "name": "key",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        },
+                        {
+                          "name": "seconds",
+                          "description": "",
+                          "type": "String",
+                          "optional": false
+                        }
+                      ],
+                      "hints": {}
+                    }
+                  ]
+                },
+                {
+                  "name": "TimerEvent",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "id",
+                      "description": "",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          },
+          {
+            "name": "sys-process",
+            "schema": {
+              "types": [
+                {
+                  "name": "Root",
+                  "description": "",
+                  "actions": [],
+                  "fields": [
+                    {
+                      "name": "endpointUrl",
+                      "description": "Gets the program's own endpoint URL",
+                      "type": "String",
+                      "params": [],
+                      "hints": {}
+                    }
+                  ],
+                  "events": []
+                }
+              ],
+              "imports": []
+            },
+            "source": {
+              "Program": ""
+            }
+          }
+        ]
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    }
+  ]
+}

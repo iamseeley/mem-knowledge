@@ -1,0 +1,415 @@
+{
+  "dependencies": {
+    "clock": "sys-clock:",
+    "http": "http:",
+    "endpoint": "sys-process:endpointUrl"
+  },
+  "expressions": {
+    "documentUrl": {
+      "description": "Document",
+      "type": "text",
+      "searchIn": "https://docs.google.com",
+      "regex": "/document/d/([a-zA-Z0-9-_]+)"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Root type for Google Docs driver operations.",
+        "fields": [
+          {
+            "name": "documents",
+            "type": "DocumentCollection",
+            "description": "Configures the Google Docs driver with the provided client ID and client secret."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Document"
+            },
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "description": "The name of the document to parse."
+              },
+              {
+                "name": "value",
+                "type": "String",
+                "description": "The value to parse for the document reference."
+              }
+            ],
+            "description": "Checks the status of the Google Docs driver."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Invokes an endpoint with the specified method, path, body, query, and headers."
+          },
+          {
+            "name": "authId",
+            "type": "String",
+            "description": "Authentication ID for Google Docs API."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Provides a test suite for the Google Docs driver."
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "clientId",
+                "type": "String"
+              },
+              {
+                "name": "clientSecret",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "checkStatus",
+            "type": "Boolean"
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DocumentCollection",
+        "actions": [
+          {
+            "name": "create",
+            "type": "Ref",
+            "ofType": "Document",
+            "params": [
+              {
+                "name": "body",
+                "type": "Json",
+                "description": "The document body as a JSON string.",
+                "optional": true
+              },
+              {
+                "name": "title",
+                "type": "String",
+                "description": "The document's title.",
+                "optional": false
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "one",
+            "type": "Document",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "The unique identifier of the document."
+              }
+            ],
+            "description": "Creates a new Google Docs document with the provided body and title."
+          },
+          {
+            "name": "page",
+            "type": "DocumentPage",
+            "params": [
+              {
+                "name": "q",
+                "description": "Search query for filtering documents.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "privateExtendedProperty",
+                "type": "String",
+                "optional": true,
+                "description": "Private properties of the document."
+              },
+              {
+                "name": "corpora",
+                "description": "Corpora to include in the search.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "teamDriveId",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "driveId",
+                "description": "The ID of the shared drive to search.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "orderBy",
+                "description": "The order to sort the search results.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "spaces",
+                "description": "The spaces to search within.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "description": "The maximum number of documents to return per page.",
+                "optional": true
+              },
+              {
+                "name": "pageToken",
+                "type": "String",
+                "description": "The token for the next page of results.",
+                "optional": true
+              },
+              {
+                "name": "supportsAllDrives",
+                "type": "Boolean",
+                "optional": true,
+                "description": "Whether to include items from all drives in the search."
+              },
+              {
+                "name": "supportsTeamDrives",
+                "type": "Boolean",
+                "optional": true,
+                "description": "Whether to include items from team drives in the search."
+              },
+              {
+                "name": "includeItemsFromAllDrives",
+                "type": "Boolean",
+                "optional": true
+              },
+              {
+                "name": "includeLabels",
+                "type": "String",
+                "optional": true,
+                "description": "Labels to include in the search results."
+              },
+              {
+                "name": "includePermissionsForView",
+                "type": "String",
+                "optional": true,
+                "description": "Permissions to include for each document in the view."
+              }
+            ],
+            "description": "Retrieves a paginated list of Google Docs based on search criteria."
+          }
+        ],
+        "description": "Manages collections of Google Docs documents."
+      },
+      {
+        "name": "DocumentPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Document",
+            "description": "List of documents on the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DocumentPage",
+            "description": "Link to the next page of documents."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Represents a paginated list of Google Docs documents."
+      },
+      {
+        "name": "Document",
+        "actions": [
+          {
+            "name": "batchUpdate",
+            "type": "String",
+            "params": [
+              {
+                "name": "requests",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "replaceAllText",
+            "type": "Int",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              },
+              {
+                "name": "replaceText",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "matchCase",
+                "type": "Boolean",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "insertText",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String",
+                "description": "The text to be inserted",
+                "optional": false
+              },
+              {
+                "name": "segmentId",
+                "type": "String",
+                "description": "Optional. The ID of the header, footer or footnote the location is in. An empty segment ID signifies the document's body.",
+                "optional": true
+              },
+              {
+                "name": "index",
+                "type": "Int",
+                "description": "Optional. The zero-based index, in UTF-16 code units. The index is relative to the beginning of the segment specified by segmentId.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "insertBullet",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String",
+                "description": "The text to be inserted",
+                "optional": false
+              },
+              {
+                "name": "index",
+                "type": "Int",
+                "description": "Optional. The zero-based index, in UTF-16 code units. The index is relative to the beginning of the segment specified by segmentId.",
+                "optional": true
+              },
+              {
+                "name": "bulletPreset",
+                "type": "String",
+                "description": "Optional. Defaults to BULLET_DISC_CIRCLE_SQUARE. See valid values at https://developers.google.com/docs/api/reference/rest/v1/documents/request#BulletGlyphPreset",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "insertLink",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String",
+                "description": "The text to be inserted",
+                "optional": false
+              },
+              {
+                "name": "index",
+                "type": "Int",
+                "description": "Optional. The zero-based index, in UTF-16 code units. The index is relative to the beginning of the segment specified by segmentId.",
+                "optional": true
+              },
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL to link to",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "revisionId",
+            "type": "String",
+            "description": "Applies a list of updates to the Google Doc in a single batch."
+          },
+          {
+            "name": "body",
+            "type": "String",
+            "description": "Replaces all occurrences of the specified text in the Google Doc."
+          },
+          {
+            "name": "markdown",
+            "type": "String",
+            "description": "Inserts the specified text into the Google Doc at the specified location."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Inserts a bullet with the specified text into the Google Doc at the specified location."
+          }
+        ],
+        "description": "Represents an individual Google Docs document."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testCreateDocument",
+            "type": "Boolean"
+          },
+          {
+            "name": "testGetAllDocuments",
+            "type": "Boolean"
+          }
+        ],
+        "description": "Test suite for the Google Docs driver."
+      }
+    ]
+  }
+}

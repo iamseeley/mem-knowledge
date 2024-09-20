@@ -1,0 +1,61 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Generate HTML templates",
+        "actions": [
+          {
+            "name": "get",
+            "description": "graph",
+            "type": "String",
+            "params": []
+          }
+        ],
+        "fields": [
+          {
+            "name": "form",
+            "type": "String",
+            "params": [
+              {
+                "name": "action",
+                "type": "Ref",
+                "ofType": "String"
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "title",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "render",
+            "type": "String",
+            "params": [
+              {
+                "name": "field",
+                "type": "Ref",
+                "ofType": "String"
+              },
+              {
+                "name": "query",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "graph": "sys-graph:"
+  }
+}

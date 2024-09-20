@@ -1,0 +1,45 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Check the daily weather to send SMS when rain is coming.",
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "apiKey",
+                "type": "String"
+              },
+              {
+                "name": "zipCode",
+                "type": "String"
+              },
+              {
+                "name": "countryCode",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "checkWeather",
+            "type": "Void"
+          }
+        ],
+        "events": []
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "sms": "sms:"
+  }
+}

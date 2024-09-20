@@ -1,0 +1,17 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Returns a greeting message.",
+        "fields": [
+          {
+            "name": "greet",
+            "type": "String",
+            "params": [{ "name": "name", "type": "String" }]
+          }
+        ]
+      }
+    ]
+  }
+}

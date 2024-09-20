@@ -1,0 +1,29 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "A simple tic-tac-toe game.",
+        "actions": [
+          {
+            "name": "reset",
+            "type": "Void",
+            "description": "Resets the tic-tac-toe game."
+          },
+          {
+            "name": "move",
+            "type": "Void",
+            "params": [
+              {
+                "name": "cell",
+                "type": "Int",
+                "description": "The cell where the move is to be made."
+              }
+            ],
+            "description": "Makes a move in the tic-tac-toe game."
+          }
+        ]
+      }
+    ]
+  }
+}

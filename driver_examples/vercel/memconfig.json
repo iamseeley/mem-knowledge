@@ -1,0 +1,1692 @@
+{
+  "expressions": {
+    "project": {
+      "description": "Project",
+      "type": "url",
+      "searchIn": "https://vercel.com",
+      "regex": "https://vercel.com/[^/]+/[^/]+$"
+    },
+    "domain": {
+      "description": "Domain",
+      "type": "url",
+      "searchIn": "https://vercel.com",
+      "regex": "https://vercel.com/[^/]+/domains/[^/]+$"
+    },
+    "deployment": {
+      "description": "Deployment",
+      "type": "url",
+      "searchIn": "https://vercel.com",
+      "regex": "https://vercel.com/[^/]+/[^/]+/[^/]+$"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Connect to Vercel and manage your projects.",
+        "fields": [
+          {
+            "name": "artifacts",
+            "type": "ArtifactCollection",
+            "description": "A collection of artifacts associated with the program."
+          },
+          {
+            "name": "deployments",
+            "type": "DeploymentCollection",
+            "description": "A collection of deployments that have been made within the program."
+          },
+          {
+            "name": "certs",
+            "type": "CertCollection",
+            "description": "A collection of SSL certificates available for the program's domains."
+          },
+          {
+            "name": "events",
+            "type": "EventCollection",
+            "description": "A stream of events that have occurred within the program."
+          },
+          {
+            "name": "aliases",
+            "type": "AliasCollection",
+            "description": "A collection of aliases that have been assigned to deployments."
+          },
+          {
+            "name": "files",
+            "type": "FileCollection",
+            "description": "A collection of files associated with the program's deployments."
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "description": "A collection of users that have access to the program."
+          },
+          {
+            "name": "domains",
+            "type": "DomainCollection",
+            "description": "A collection of domains that have been registered or configured within the program."
+          },
+          {
+            "name": "secrets",
+            "type": "SecretCollection",
+            "description": "A collection of secrets that are used for environment variables or other sensitive data."
+          },
+          {
+            "name": "projects",
+            "type": "ProjectCollection",
+            "description": "A collection of projects that have been created within the program."
+          },
+          {
+            "name": "verifies",
+            "type": "VerifyCollection",
+            "description": "A collection of verification objects used for user authentication and authorization."
+          },
+          {
+            "name": "integrations",
+            "type": "IntegrationCollection",
+            "description": "A collection of integrations that have been set up with external services."
+          },
+          {
+            "name": "teams",
+            "type": "TeamCollection",
+            "description": "A collection of teams that have been created to collaborate on projects."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The current status of the program."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": true
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Project"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "A utility to parse project-related information."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "A set of tests to validate the functionality of deployments, projects, and aliases."
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "token",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "events": []
+      },
+      {
+        "name": "Artifact",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Artifact"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Root type for Vercel artifacts"
+      },
+      {
+        "name": "Deployment",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Deployment",
+            "description": "Reference to another Vercel deployment."
+          },
+          {
+            "name": "aliasAssignedAt",
+            "type": "Int",
+            "description": "Timestamp when the alias was assigned."
+          },
+          {
+            "name": "build",
+            "type": "String",
+            "description": "Build details for the deployment."
+          },
+          {
+            "name": "builds",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of build details for the deployment."
+          },
+          {
+            "name": "createdIn",
+            "type": "String",
+            "description": "Location where the deployment was created."
+          },
+          {
+            "name": "env",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of environment variables for the deployment."
+          },
+          {
+            "name": "functions",
+            "type": "String",
+            "description": "Functions associated with the deployment."
+          },
+          {
+            "name": "inspectorUrl",
+            "type": "String",
+            "description": "URL for inspecting the deployment."
+          },
+          {
+            "name": "meta",
+            "type": "String",
+            "description": "Metadata associated with the deployment."
+          },
+          {
+            "name": "monorepoManager",
+            "type": "String",
+            "description": "Monorepo manager for the deployment."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Name of the deployment with primary hint."
+          },
+          {
+            "name": "ownerId",
+            "type": "String",
+            "description": "ID of the deployment owner."
+          },
+          {
+            "name": "plan",
+            "type": "String",
+            "description": "Plan details for the deployment."
+          },
+          {
+            "name": "projectId",
+            "type": "String",
+            "description": "ID of the deployment project."
+          },
+          {
+            "name": "routes",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of routes for the deployment."
+          },
+          {
+            "name": "alias",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of aliases for the deployment."
+          },
+          {
+            "name": "aliasAssigned",
+            "type": "Boolean",
+            "description": "Boolean flag indicating if an alias is assigned."
+          },
+          {
+            "name": "aliasError",
+            "type": "String",
+            "description": "Error message related to alias assignment."
+          },
+          {
+            "name": "aliasFinal",
+            "type": "String",
+            "description": "Final alias assigned to the deployment."
+          },
+          {
+            "name": "aliasWarning",
+            "type": "String",
+            "description": "Warning message related to alias assignment."
+          },
+          {
+            "name": "automaticAliases",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of automatically assigned aliases."
+          },
+          {
+            "name": "bootedAt",
+            "type": "Int",
+            "description": "Timestamp when the deployment was booted."
+          },
+          {
+            "name": "buildErrorAt",
+            "type": "Int",
+            "description": "Timestamp when build error occurred."
+          },
+          {
+            "name": "buildingAt",
+            "type": "Int",
+            "description": "Timestamp when the deployment was being built."
+          },
+          {
+            "name": "canceledAt",
+            "type": "Int",
+            "description": "Timestamp when the deployment was canceled."
+          },
+          {
+            "name": "checksState",
+            "type": "String",
+            "description": "State of deployment checks."
+          },
+          {
+            "name": "checksConclusion",
+            "type": "String",
+            "description": "Conclusion of deployment checks."
+          },
+          {
+            "name": "createdAt",
+            "type": "Int",
+            "description": "Timestamp when the deployment was created."
+          },
+          {
+            "name": "creator",
+            "type": "String",
+            "description": "Creator of the deployment."
+          },
+          {
+            "name": "errorCode",
+            "type": "String",
+            "description": "Error code associated with the deployment."
+          },
+          {
+            "name": "errorLink",
+            "type": "String",
+            "description": "Link to the error associated with the deployment."
+          },
+          {
+            "name": "errorMessage",
+            "type": "String",
+            "description": "Error message associated with the deployment."
+          },
+          {
+            "name": "errorStep",
+            "type": "String",
+            "description": "Step at which the error occurred."
+          },
+          {
+            "name": "gitSource",
+            "type": "String",
+            "description": "Source of the deployment from Git."
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "ID of the deployment."
+          },
+          {
+            "name": "lambdas",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of lambdas associated with the deployment."
+          },
+          {
+            "name": "public",
+            "type": "Boolean",
+            "description": "Boolean flag indicating if the deployment is public."
+          },
+          {
+            "name": "readyState",
+            "type": "String",
+            "description": "State of deployment readiness."
+          },
+          {
+            "name": "regions",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of regions for the deployment."
+          },
+          {
+            "name": "source",
+            "type": "String",
+            "description": "Source of the deployment."
+          },
+          {
+            "name": "target",
+            "type": "String",
+            "description": "Target of the deployment."
+          },
+          {
+            "name": "team",
+            "type": "String",
+            "description": "Team associated with the deployment."
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "Type of the deployment."
+          },
+          {
+            "name": "url",
+            "type": "String",
+            "description": "URL of the deployment."
+          },
+          {
+            "name": "userAliases",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of user-assigned aliases for the deployment."
+          },
+          {
+            "name": "version",
+            "type": "Int",
+            "description": "Version number of the deployment."
+          }
+        ],
+        "actions": [
+          {
+            "name": "promoteToProduction",
+            "type": "Void",
+            "description": "Action to promote the deployment to production."
+          }
+        ],
+        "events": []
+      },
+      {
+        "name": "Cert",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Cert",
+            "description": "Reference to another Vercel certificate"
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier of the Vercel certificate"
+          },
+          {
+            "name": "createdAt",
+            "type": "Int",
+            "description": "Timestamp when the Vercel certificate was created"
+          },
+          {
+            "name": "expiresAt",
+            "type": "Int",
+            "description": "Timestamp when the Vercel certificate expires"
+          },
+          {
+            "name": "autoRenew",
+            "type": "Boolean",
+            "description": "Indicates whether the Vercel certificate is set to auto-renew"
+          },
+          {
+            "name": "cns",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of common names associated with the Vercel certificate"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type Schema for handling Vercel SSL certificates."
+      },
+      {
+        "name": "Event",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Event"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Root type for Vercel events"
+      },
+      {
+        "name": "Alias",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Alias"
+          },
+          {
+            "name": "alias",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "created",
+            "type": "String"
+          },
+          {
+            "name": "createdAt",
+            "type": "Int"
+          },
+          {
+            "name": "creator",
+            "type": "String"
+          },
+          {
+            "name": "deletedAt",
+            "type": "Int"
+          },
+          {
+            "name": "deployment",
+            "type": "String"
+          },
+          {
+            "name": "deploymentId",
+            "type": "String"
+          },
+          {
+            "name": "projectId",
+            "type": "String"
+          },
+          {
+            "name": "redirect",
+            "type": "String"
+          },
+          {
+            "name": "redirectStatusCode",
+            "type": "Int"
+          },
+          {
+            "name": "uid",
+            "type": "String"
+          },
+          {
+            "name": "updatedAt",
+            "type": "Int"
+          },
+          {
+            "name": "protectionBypass",
+            "type": "String"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing an alias in the Vercel driver."
+      },
+      {
+        "name": "File",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "File"
+          }
+        ],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "User"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Root type for Vercel User data"
+      },
+      {
+        "name": "Domain",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Domain"
+          },
+          {
+            "name": "domain",
+            "type": "String"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a Vercel domain"
+      },
+      {
+        "name": "Secret",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Secret",
+            "description": "Reference to another secret"
+          },
+          {
+            "name": "created",
+            "type": "String",
+            "description": "Date when the secret was created"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Name of the secret"
+          },
+          {
+            "name": "teamId",
+            "type": "String",
+            "description": "ID of the team to which the secret belongs"
+          },
+          {
+            "name": "uid",
+            "type": "String",
+            "description": "Unique identifier of the secret"
+          },
+          {
+            "name": "userId",
+            "type": "String",
+            "description": "ID of the user to whom the secret belongs"
+          },
+          {
+            "name": "value",
+            "type": "String",
+            "description": "Value of the secret"
+          },
+          {
+            "name": "createdAt",
+            "type": "Int",
+            "description": "Timestamp of when the secret was created"
+          },
+          {
+            "name": "projectId",
+            "type": "String",
+            "description": "ID of the project to which the secret belongs"
+          },
+          {
+            "name": "decryptable",
+            "type": "Boolean",
+            "description": "Indicates whether the secret is decryptable"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a secret in the Vercel driver"
+      },
+      {
+        "name": "Project",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Project",
+            "description": "Reference to another Vercel Project"
+          },
+          {
+            "name": "accountId",
+            "type": "String",
+            "description": "Unique identifier for the Vercel account"
+          },
+          {
+            "name": "analytics",
+            "type": "String",
+            "description": "Analytics configuration for the Vercel Project"
+          },
+          {
+            "name": "autoExposeSystemEnvs",
+            "type": "Boolean",
+            "description": "Flag to automatically expose system environments"
+          },
+          {
+            "name": "buildCommand",
+            "type": "String",
+            "description": "Command for building the Vercel Project"
+          },
+          {
+            "name": "commandForIgnoringBuildStep",
+            "type": "String",
+            "description": "Command for ignoring build steps"
+          },
+          {
+            "name": "createdAt",
+            "type": "Int",
+            "description": "Timestamp for the creation of the Vercel Project"
+          },
+          {
+            "name": "devCommand",
+            "type": "String",
+            "description": "Command for development environment setup"
+          },
+          {
+            "name": "directoryListing",
+            "type": "Boolean",
+            "description": "Flag to enable directory listing for the Vercel Project"
+          },
+          {
+            "name": "installCommand",
+            "type": "String",
+            "description": "Command for installing dependencies"
+          },
+          {
+            "name": "env",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of environment variables for the Vercel Project"
+          },
+          {
+            "name": "framework",
+            "type": "String",
+            "description": "Framework used for the Vercel Project"
+          },
+          {
+            "name": "gitForkProtection",
+            "type": "Boolean",
+            "description": "Flag to protect against Git forking"
+          },
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier for the Vercel Project"
+          },
+          {
+            "name": "latestDeployments",
+            "type": "List",
+            "ofType": {
+              "type": "String"
+            },
+            "description": "List of latest deployments for the Vercel Project"
+          },
+          {
+            "name": "link",
+            "type": "String",
+            "description": "Link to the Vercel Project"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Name of the Vercel Project, with primary hint"
+          },
+          {
+            "name": "nodeVersion",
+            "type": "String",
+            "description": "Node.js version used for the Vercel Project"
+          },
+          {
+            "name": "outputDirectory",
+            "type": "String",
+            "description": "Output directory for the Vercel Project"
+          },
+          {
+            "name": "passwordProtection",
+            "type": "String",
+            "description": "Password protection configuration for the Vercel Project"
+          },
+          {
+            "name": "publicSource",
+            "type": "Boolean",
+            "description": "Flag to indicate if the source is public for the Vercel Project"
+          },
+          {
+            "name": "rootDirectory",
+            "type": "String",
+            "description": "Root directory for the Vercel Project"
+          },
+          {
+            "name": "serverlessFunctionRegion",
+            "type": "String",
+            "description": "Region for serverless functions in the Vercel Project"
+          },
+          {
+            "name": "skipGitConnectDuringLink",
+            "type": "Boolean",
+            "description": "Flag to skip Git connection during linking"
+          },
+          {
+            "name": "sourceFilesOutsideRootDirectory",
+            "type": "Boolean",
+            "description": "Flag to indicate if source files are outside the root directory of the Vercel Project"
+          },
+          {
+            "name": "ssoProtection",
+            "type": "String",
+            "description": "Configuration for Single Sign-On protection"
+          },
+          {
+            "name": "targets",
+            "type": "String",
+            "description": "Targets for the Vercel Project"
+          },
+          {
+            "name": "transferCompletedAt",
+            "type": "Int",
+            "description": "Timestamp for the completion of project transfer"
+          },
+          {
+            "name": "transferStartedAt",
+            "type": "Int",
+            "description": "Timestamp for the start of project transfer"
+          },
+          {
+            "name": "transferToAccountId",
+            "type": "String",
+            "description": "Unique identifier for the account to which the project is transferred"
+          },
+          {
+            "name": "transferredFromAccountId",
+            "type": "String",
+            "description": "Unique identifier for the account from which the project is transferred"
+          },
+          {
+            "name": "updatedAt",
+            "type": "Int",
+            "description": "Timestamp for the last update of the Vercel Project"
+          },
+          {
+            "name": "live",
+            "type": "Boolean",
+            "description": "Flag to indicate if the Vercel Project is live"
+          },
+          {
+            "name": "enablePreviewFeedback",
+            "type": "Boolean",
+            "description": "Flag to enable preview feedback for the Vercel Project"
+          },
+          {
+            "name": "permissions",
+            "type": "String",
+            "description": "Permissions configuration for the Vercel Project"
+          },
+          {
+            "name": "lastRollbackTarget",
+            "type": "String",
+            "description": "Target for the last rollback of the Vercel Project"
+          },
+          {
+            "name": "hasFloatingAliases",
+            "type": "Boolean",
+            "description": "Flag to indicate if the Vercel Project has floating aliases"
+          },
+          {
+            "name": "protectionBypass",
+            "type": "String",
+            "description": "Configuration for protection bypass in the Vercel Project"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type Schema for Vercel Project"
+      },
+      {
+        "name": "Verify",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Verify"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Root of the Vercel verification process"
+      },
+      {
+        "name": "Integration",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Integration"
+          }
+        ],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "Team",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Team"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Root"
+      },
+      {
+        "name": "ArtifactCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Artifact",
+            "params": [
+              {
+                "name": "x-artifact-client-ci",
+                "type": "String",
+                "description": "The continuous integration or delivery environment where this artifact is downloaded.",
+                "optional": true
+              },
+              {
+                "name": "x-artifact-client-interactive",
+                "type": "Int",
+                "description": "1 if the client is an interactive shell. Otherwise 0",
+                "optional": true
+              },
+              {
+                "name": "hash",
+                "type": "String",
+                "description": "The artifact hash",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "DeploymentCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Deployment",
+            "params": [
+              {
+                "name": "idOrUrl",
+                "type": "String",
+                "description": "The unique identifier or hostname of the deployment."
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "DeploymentPage",
+            "params": [
+              {
+                "name": "app",
+                "type": "String",
+                "description": "Name of the deployment.",
+                "optional": true
+              },
+              {
+                "name": "from",
+                "type": "Int",
+                "description": "Gets the deployment created after this Date timestamp. (default: current time)",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "description": "Maximum number of deployments to list from a request.",
+                "optional": true
+              },
+              {
+                "name": "projectId",
+                "type": "String",
+                "description": "Filter deployments from the given `projectId`.",
+                "optional": true
+              },
+              {
+                "name": "target",
+                "type": "String",
+                "description": "Filter deployments based on the environment.",
+                "optional": true
+              },
+              {
+                "name": "to",
+                "type": "Int",
+                "description": "Gets the deployment created before this Date timestamp. (default: current time)",
+                "optional": true
+              },
+              {
+                "name": "users",
+                "type": "String",
+                "description": "Filter out deployments based on users who have created the deployment.",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "Int",
+                "description": "Get Deployments created after this JavaScript timestamp.",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "Int",
+                "description": "Get Deployments created before this JavaScript timestamp.",
+                "optional": true
+              },
+              {
+                "name": "state",
+                "type": "String",
+                "description": "Filter deployments based on their state (`BUILDING`, `ERROR`, `INITIALIZING`, `QUEUED`, `READY`, `CANCELED`)",
+                "optional": true
+              },
+              {
+                "name": "rollbackCandidate",
+                "type": "Boolean",
+                "description": "Filter deployments based on their rollback candidacy",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Vercel deployments."
+      },
+      {
+        "name": "DeploymentPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Deployment"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DeploymentPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Vercel deployment items"
+      },
+      {
+        "name": "CertCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Cert",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "The cert id"
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of certificates for Vercel"
+      },
+      {
+        "name": "EventCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "EventPage",
+            "params": [
+              {
+                "name": "limit",
+                "type": "Int",
+                "description": "Maximum number of items which may be returned.",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "String",
+                "description": "Timestamp to only include items created since then.",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "String",
+                "description": "Timestamp to only include items created until then.",
+                "optional": true
+              },
+              {
+                "name": "types",
+                "type": "String",
+                "description": "Comma-delimited list of event \\\"types\\\" to filter the results by.",
+                "optional": true
+              },
+              {
+                "name": "userId",
+                "type": "String",
+                "description": "When retrieving events for a Team, the `userId` parameter may be specified to filter events generated by a specific member of the Team.",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "EventPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Event"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "EventPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a page of events."
+      },
+      {
+        "name": "AliasCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Alias",
+            "params": [
+              {
+                "name": "from",
+                "type": "Int",
+                "description": "Get the alias only if it was created after the provided timestamp",
+                "optional": true
+              },
+              {
+                "name": "idOrAlias",
+                "type": "String",
+                "description": "The alias or alias ID to be retrieved",
+                "optional": false
+              },
+              {
+                "name": "projectId",
+                "type": "String",
+                "description": "Get the alias only if it is assigned to the provided project ID",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "Int",
+                "description": "Get the alias only if it was created after this JavaScript timestamp",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "Int",
+                "description": "Get the alias only if it was created before this JavaScript timestamp",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "AliasPage",
+            "params": [
+              {
+                "name": "domain",
+                "type": "String",
+                "description": "Get only aliases of the given domain name",
+                "optional": true
+              },
+              {
+                "name": "from",
+                "type": "Int",
+                "description": "Get only aliases created after the provided timestamp",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "description": "Maximum number of aliases to list from a request",
+                "optional": true
+              },
+              {
+                "name": "projectId",
+                "type": "String",
+                "description": "Filter aliases from the given `projectId`",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "Int",
+                "description": "Get aliases created after this JavaScript timestamp",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "Int",
+                "description": "Get aliases created before this JavaScript timestamp",
+                "optional": true
+              },
+              {
+                "name": "rollbackDeploymentId",
+                "type": "String",
+                "description": "Get aliases that would be rolled back for the given deployment",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of aliases and alias pages"
+      },
+      {
+        "name": "AliasPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Alias"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "AliasPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing an alias page in Vercel"
+      },
+      {
+        "name": "FileCollection",
+        "fields": [],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "UserCollection",
+        "fields": [],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Vercel users"
+      },
+      {
+        "name": "DomainCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Domain",
+            "params": [
+              {
+                "name": "domain",
+                "type": "String",
+                "description": "The name of the domain."
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ],
+            "description": "Field representing a single domain item"
+          },
+          {
+            "name": "page",
+            "type": "DomainPage",
+            "params": [
+              {
+                "name": "limit",
+                "type": "Int",
+                "description": "Maximum number of domains to list from a request.",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "Int",
+                "description": "Get domains created after this JavaScript timestamp.",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "Int",
+                "description": "Get domains created before this JavaScript timestamp.",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ],
+            "description": "Field representing a page of domain items"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of domain items"
+      },
+      {
+        "name": "DomainPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Domain"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "DomainPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a page of domain items."
+      },
+      {
+        "name": "SecretCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Secret",
+            "params": [
+              {
+                "name": "idOrName",
+                "type": "String",
+                "description": "The name or the unique identifier to which the secret belongs to.",
+                "optional": true
+              },
+              {
+                "name": "decrypt",
+                "type": "String",
+                "description": "Whether to try to decrypt the value of the secret. Only works if `decryptable` has been set to `true` when the secret was created.",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "SecretPage",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "Filter out secrets based on comma separated secret ids.",
+                "optional": true
+              },
+              {
+                "name": "projectId",
+                "type": "String",
+                "description": "Filter out secrets that belong to a project.",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of secrets in Vercel"
+      },
+      {
+        "name": "SecretPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Secret"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "SecretPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of secrets with pagination support"
+      },
+      {
+        "name": "ProjectCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Project",
+            "params": [
+              {
+                "name": "idOrName",
+                "type": "String",
+                "description": "The unique project identifier or the project name"
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ],
+            "description": "Retrieve a single Vercel project by ID or name"
+          },
+          {
+            "name": "page",
+            "type": "ProjectPage",
+            "params": [
+              {
+                "name": "from",
+                "type": "String",
+                "description": "Query only projects updated after the given timestamp",
+                "optional": true
+              },
+              {
+                "name": "gitForkProtection",
+                "type": "String",
+                "description": "Specifies whether PRs from Git forks should require a team member's authorization before it can be deployed",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "String",
+                "description": "Limit the number of projects returned",
+                "optional": true
+              },
+              {
+                "name": "search",
+                "type": "String",
+                "description": "Search projects by the name field",
+                "optional": true
+              },
+              {
+                "name": "repo",
+                "type": "String",
+                "description": "Filter results by repo. Also used for project count",
+                "optional": true
+              },
+              {
+                "name": "repoId",
+                "type": "String",
+                "description": "Filter results by Repository ID.",
+                "optional": true
+              },
+              {
+                "name": "repoUrl",
+                "type": "String",
+                "description": "Filter results by Repository URL.",
+                "optional": true
+              },
+              {
+                "name": "excludeRepos",
+                "type": "String",
+                "description": "Filter results by excluding those projects that belong to a repo",
+                "optional": true
+              },
+              {
+                "name": "edgeConfigId",
+                "type": "String",
+                "description": "Filter results by connected Edge Config ID",
+                "optional": true
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ],
+            "description": "Retrieve a page of Vercel projects with optional filtering and search"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Vercel projects"
+      },
+      {
+        "name": "ProjectPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Project"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "ProjectPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a page of projects on Vercel"
+      },
+      {
+        "name": "VerifyCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "VerifyPage",
+            "params": [
+              {
+                "name": "email",
+                "type": "String",
+                "description": "Email to verify the login.",
+                "optional": true
+              },
+              {
+                "name": "token",
+                "type": "String",
+                "description": "The token returned when the login was requested.",
+                "optional": true
+              },
+              {
+                "name": "tokenName",
+                "type": "String",
+                "description": "The desired name for the token. It will be displayed on the user account details.",
+                "optional": true
+              },
+              {
+                "name": "ssoUserId",
+                "type": "String",
+                "description": "The SAML Profile ID, when connecting a SAML Profile to a Team member for the first time.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of verification data for Vercel."
+      },
+      {
+        "name": "VerifyPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Verify"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "VerifyPage"
+          }
+        ],
+        "actions": [],
+        "events": []
+      },
+      {
+        "name": "IntegrationCollection",
+        "fields": [],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Vercel integrations"
+      },
+      {
+        "name": "TeamCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Team",
+            "params": [
+              {
+                "name": "slug",
+                "type": "String"
+              },
+              {
+                "name": "teamId",
+                "type": "String",
+                "description": "The Team identifier or slug to perform the request on behalf of.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "TeamPage",
+            "params": [
+              {
+                "name": "limit",
+                "type": "Int",
+                "description": "Maximum number of Teams which may be returned.",
+                "optional": true
+              },
+              {
+                "name": "since",
+                "type": "Int",
+                "description": "Timestamp (in milliseconds) to only include Teams created since then.",
+                "optional": true
+              },
+              {
+                "name": "until",
+                "type": "Int",
+                "description": "Timestamp (in milliseconds) to only include Teams created until then.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of team items"
+      },
+      {
+        "name": "TeamPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Team"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "TeamPage"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Type representing a page of teams."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetDeployments",
+            "type": "Boolean"
+          },
+          {
+            "name": "testGetProjects",
+            "type": "Boolean"
+          },
+          {
+            "name": "testGetAliases",
+            "type": "Boolean"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

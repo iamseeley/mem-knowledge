@@ -1,0 +1,333 @@
+{
+  "dependencies": {
+    "http": "http:"
+  },
+  "expressions": {
+    "item": {
+      "description": "HN Item",
+      "type": "url",
+      "searchIn": "https://news.ycombinator.com",
+      "regex": "https://news.ycombinator.com/item\\?id=[0-9]+$"
+    },
+    "user": {
+      "description": "HN User",
+      "type": "url",
+      "searchIn": "https://news.ycombinator.com",
+      "regex": "https://news.ycombinator.com/user\\?id=[a-zA-Z0-9-_]+$"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Root type represents the base entity of Hacker News API. It provides access to various collections and endpoints such as item and user collections, status checks, and test entities.",
+        "fields": [
+          {
+            "name": "items",
+            "type": "ItemCollection",
+            "description": "Collection of Hacker News items"
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "description": "Collection of Hacker News users"
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Indicates the current operational status of the Hacker News API service."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Item"
+            },
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "Internal mechanism used for transforming and interpreting item data."
+          },
+          {
+            "name": "stories",
+            "type": "ItemCollection",
+            "description": "Collection of top, new, and best stories from Hacker News"
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Contains test entities for evaluating and ensuring the reliability of the Hacker News API endpoints."
+          }
+        ]
+      },
+      {
+        "name": "ItemCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Item",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int"
+              }
+            ],
+            "description": "Retrieves a single Hacker News item by ID"
+          },
+          {
+            "name": "page",
+            "type": "ItemPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "topic",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ],
+            "description": "Paginated collection of Hacker News items"
+          }
+        ],
+        "description": "ItemCollection type is a container for Hacker News items such as posts, comments, and jobs, allowing retrieval of individual items or paginated lists."
+      },
+      {
+        "name": "ItemPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Item",
+            "description": "List of Hacker News items on the current page"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "ItemPage",
+            "description": "Reference to the next page in the collection of Hacker News items"
+          }
+        ],
+        "description": "ItemPage type represents a page of Hacker News items, with references to individual items and the next page of items."
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "Retrieves a single Hacker News user profile by username"
+          }
+        ],
+        "actions": [
+          {
+            "name": "create",
+            "type": "String"
+          }
+        ],
+        "description": "UserCollection type provides functionalities to access individual user profiles within Hacker News by their unique identifiers or to create new user profiles."
+      },
+      {
+        "name": "Item",
+        "fields": [
+          {
+            "name": "id",
+            "type": "Int",
+            "description": "Unique identifier of a Hacker News item"
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean",
+            "description": "Status indicating if the Hacker News item is deleted"
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "Type of the Hacker News item (post, comment, job, etc.)"
+          },
+          {
+            "name": "by",
+            "type": "String",
+            "description": "Username of the submitter of the Hacker News item"
+          },
+          {
+            "name": "time",
+            "type": "Int",
+            "description": "Timestamp when the Hacker News item was submitted"
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Text content of the Hacker News item"
+          },
+          {
+            "name": "dead",
+            "type": "Boolean",
+            "description": "Indicates if the Hacker News item is no longer active"
+          },
+          {
+            "name": "parent",
+            "type": "Item",
+            "description": "Parent item of this Hacker News item (for comments/replies)"
+          },
+          {
+            "name": "kids",
+            "type": "List",
+            "ofType": "Item",
+            "description": "List of child items linked to this Hacker News item"
+          },
+          {
+            "name": "url",
+            "type": "String",
+            "description": "Original source URL for the Hacker News item"
+          },
+          {
+            "name": "score",
+            "type": "Int",
+            "description": "Net score of the Hacker News item"
+          },
+          {
+            "name": "title",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Title of the Hacker News item (stories, jobs)"
+          },
+          {
+            "name": "descendants",
+            "type": "Int",
+            "description": "Count of all sub-items (comments, replies) associated with the Hacker News item"
+          }
+        ],
+        "description": "Item type encapsulates a Hacker News item which can be a post, comment, or a job listing. It includes details like identification, ownership, score, and associated comments or children."
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Unique username of the Hacker News user"
+          },
+          {
+            "name": "about",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Brief bio or description provided by the user"
+          },
+          {
+            "name": "created",
+            "type": "Int",
+            "description": "Timestamp of the Hacker News user's account creation"
+          },
+          {
+            "name": "karma",
+            "type": "Int",
+            "description": "Score representing the user's contributions to Hacker News"
+          },
+          {
+            "name": "submitted",
+            "type": "UserItemPage",
+            "params": [
+              {
+                "name": "page",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true
+              }
+            ],
+            "description": "Paginated list of the user's submitted items on Hacker News"
+          }
+        ],
+        "description": "User type represents a Hacker News user profile containing personal and activity information such as identity, karma points, and content submissions."
+      },
+      {
+        "name": "UserItemPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Item",
+            "description": "List of Hacker News items submitted by the user on the current page"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "UserItemPage",
+            "description": "Reference to the next page of user's submitted items"
+          }
+        ],
+        "description": "UserItemPage type provides a paginated view of items submitted by a Hacker News user, including navigation to subsequent pages."
+      },
+      {
+        "name": "UserItemCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "String",
+            "description": "Paginated collection of a user's submitted Hacker News items"
+          },
+          {
+            "name": "one",
+            "type": "String",
+            "description": "Retrieves a single Hacker News item from the user's collection"
+          }
+        ],
+        "description": "UserItemCollection type is designed to manage collections of items associated with a specific Hacker News user, such as posted stories or comments."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetStories",
+            "type": "Boolean",
+            "description": "Tests retrieval of Hacker News stories"
+          },
+          {
+            "name": "testGetItems",
+            "type": "Boolean",
+            "description": "Tests fetching individual Hacker News items"
+          }
+        ],
+        "description": "Tests type provides actions for testing the functionality of the Hacker News API endpoints, such as retrieving stories or items."
+      }
+    ]
+  }
+}

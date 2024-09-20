@@ -1,0 +1,485 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Manages the integration between Membrane and Airtable.",
+        "fields": [
+          {
+            "name": "tables",
+            "type": "TableCollection",
+            "params": [],
+            "description": "Represents a collection of tables in Airtable."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Represents the status of the integration with Airtable."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": false
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Table"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "optional": false
+              },
+              {
+                "name": "value",
+                "type": "String"
+              },
+              {
+                "name": "url",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Parses the data from Airtable into a list of tables."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Performs tests and validations for the integration with Airtable."
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "API_KEY",
+                "type": "String",
+                "optional": false
+              },
+              {
+                "name": "BASE_ID",
+                "type": "String",
+                "optional": false
+              }
+            ],
+            "description": "Configures the Airtable API key and base ID for integration."
+          },
+          {
+            "name": "refreshWebhook",
+            "type": "Void",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "Refreshes the webhook for the specified ID."
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String",
+                "optional": false
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "path",
+                "type": "String",
+                "optional": false
+              },
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": false
+              }
+            ],
+            "description": "Invokes an HTTP endpoint with the specified method, path, body, query, and headers."
+          }
+        ],
+        "events": [
+          {
+            "name": "statusChanged",
+            "type": "Void",
+            "description": "Triggered when the status changes."
+          }
+        ]
+      },
+      {
+        "name": "TableCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Table",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "optional": false,
+                "description": "The table ID. Usually starts with \"tbl\""
+              }
+            ],
+            "description": "Allows access to a specific Airtable table using its unique identifier for operations."
+          },
+          {
+            "name": "page",
+            "type": "TablePage",
+            "params": [],
+            "description": "Provides access to a subset of records from an Airtable table for handling data in segments."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of tables within Airtable that allows for data retrieval and management."
+      },
+      {
+        "name": "TablePage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": {
+              "type": "Table"
+            },
+            "description": "Collection of tables within the current page in Airtable."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": {
+              "type": "TablePage"
+            },
+            "description": "Link to the next set of table data in a paginated Airtable sequence."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "A page containing a section of Airtable tables."
+      },
+      {
+        "name": "Table",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the table."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The name of the table."
+          },
+          {
+            "name": "primaryFieldId",
+            "type": "String",
+            "description": "The unique identifier of the primary field."
+          },
+          {
+            "name": "records",
+            "type": "RecordCollection",
+            "description": "Represents a collection of records in the table."
+          }
+        ],
+        "actions": [
+          {
+            "name": "createRecord",
+            "type": "Json",
+            "params": [
+              {
+                "name": "fields",
+                "type": "Json",
+                "optional": false
+              }
+            ],
+            "ofType": "Record",
+            "description": "Creates a new record in the table with the specified fields."
+          },
+          {
+            "name": "createWebhook",
+            "type": "Int",
+            "params": [],
+            "description": "Creates a webhook for the table."
+          },
+          {
+            "name": "upsertRecord",
+            "type": "Json",
+            "params": [
+              {
+                "name": "fields",
+                "type": "Json"
+              },
+              {
+                "name": "fieldsToMergeOn",
+                "type": "Json"
+              }
+            ],
+            "description": "Updates or inserts a record in the table. The id field of records is optional. Records that do not include id will use the fields chosen by fieldsToMergeOn as an external ID to match with existing records. fieldsToMergeOn must be an array with 1-3 field names or IDs."
+          },
+          {
+            "name": "updateRecord",
+            "type": "Void",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              },
+              {
+                "name": "fields",
+                "type": "Json"
+              }
+            ],
+            "description": "Updates a table record identified by the provided record ID."
+          },
+          {
+            "name": "replaceRecord",
+            "type": "Void",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              },
+              {
+                "name": "fields",
+                "type": "Json"
+              }
+            ],
+            "description": "Replaces a table record identified by the provided record ID."
+          }
+        ],
+        "events": [
+          {
+            "name": "changed",
+            "type": "TableEvent",
+            "params": [],
+            "description": "Triggered when the table data changes."
+          }
+        ],
+        "description": "Represents a table in Airtable."
+      },
+      {
+        "name": "RecordCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Record",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "The unique identifier of a record in the Airtable base."
+              }
+            ],
+            "description": "Allows access to a specified record by its ID for operations such as retrieval or modification."
+          },
+          {
+            "name": "page",
+            "type": "RecordPage",
+            "params": [
+              {
+                "name": "offset",
+                "type": "String",
+                "optional": true,
+                "description": "The offset from where to start retrieving records (used for pagination)."
+              },
+              {
+                "name": "filterByFormula",
+                "type": "String",
+                "optional": true,
+                "description": "A formula to filter records. Only records which satisfy the formula will be returned."
+              },
+              {
+                "name": "maxRecords",
+                "type": "Int",
+                "optional": true,
+                "description": "The maximum number of records to return during a single request."
+              },
+              {
+                "name": "pageSize",
+                "type": "Int",
+                "optional": true,
+                "description": "The number of records returned in each page of results."
+              },
+              {
+                "name": "sort",
+                "type": "String",
+                "optional": true,
+                "description": "A JSON string that specifies the fields to sort by and their corresponding sort direction."
+              },
+              {
+                "name": "view",
+                "type": "String",
+                "optional": true,
+                "description": "The name of the view in Airtable to display the records."
+              },
+              {
+                "name": "cellFormat",
+                "type": "String",
+                "optional": true,
+                "description": "The format for the cell values. Can be 'json' or 'string'."
+              },
+              {
+                "name": "timeZone",
+                "type": "String",
+                "optional": true,
+                "description": "The time zone that should be used to format time data types."
+              },
+              {
+                "name": "userLocale",
+                "type": "String",
+                "optional": true,
+                "description": "The user locale to use for formatting localized data types."
+              }
+            ],
+            "description": "Allows retrieval of records in a paginated format, supporting various filters and sorting options."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Airtable records."
+      },
+      {
+        "name": "RecordPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": {
+              "type": "Record"
+            },
+            "description": "Collection of Airtable records within the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": {
+              "type": "RecordPage"
+            },
+            "description": "Reference to the next RecordPage for pagination purposes."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Represents a single page of Airtable records, often used for pagination."
+      },
+      {
+        "name": "Record",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Unique identifier for the Airtable record."
+          },
+          {
+            "name": "createdTime",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Creation timestamp of the Airtable record."
+          },
+          {
+            "name": "fields",
+            "type": "Json",
+            "description": "Data fields containing the values for the Airtable record."
+          }
+        ],
+        "actions": [
+          {
+            "name": "deleteRecord",
+            "type": "Int",
+            "params": [],
+            "description": "Action to remove the Airtable record from its table."
+          },
+          {
+            "name": "updateRecord",
+            "type": "Int",
+            "params": [
+              {
+                "name": "fields",
+                "type": "Json",
+                "optional": false,
+                "description": "JSON object containing the field values to update the Airtable record with."
+              }
+            ],
+            "description": "Action to modify the data fields of the Airtable record."
+          }
+        ],
+        "events": [],
+        "description": "Representation of a single Airtable record."
+      },
+      {
+        "name": "TableEvent",
+        "fields": [
+          {
+            "name": "record",
+            "type": "Ref",
+            "ofType": "Record",
+            "description": "Refers to the Airtable record involved in the event."
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "Specifies the category of the table event that occurred."
+          }
+        ],
+        "description": "Represents events pertaining to Airtable tables."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetTables",
+            "type": "Boolean",
+            "description": "Performs a test to retrieve tables from Airtable."
+          }
+        ],
+        "description": "Contains tests for the Membrane-Airtable integration."
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "endpoint": "sys-process:endpointUrl"
+  },
+  "expressions": {
+    "table": {
+      "description": "Table",
+      "type": "url",
+      "searchIn": "https://airtable.com",
+      "regex": "https://airtable.com/[^/]+/tbl[^/]+$"
+    },
+    "record": {
+      "description": "Record",
+      "type": "text",
+      "searchIn": "https://airtable.com",
+      "regex": "data-rowid=\"([^\"]+)\""
+    }
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "expressions": {
+    "tweet": {
+      "description": "Tweet",
+      "type": "url",
+      "regex": "https://twitter.com/[^/]+/status/[0-9]+$",
+      "searchIn": "https://twitter.com"
+    },
+    "user": {
+      "description": "User",
+      "type": "text",
+      "regex": "@\\w{1,15}",
+      "searchIn": "https://twitter.com/"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Driver to interact with Twitter",
+        "actions": [
+          {
+            "name": "tweet",
+            "type": "Json",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              },
+              {
+                "name": "poll_options",
+                "type": "String",
+                "description": "A list of poll options for a Tweet with a poll, must be comma separated.",
+                "optional": true
+              },
+              {
+                "name": "poll_duration_minutes",
+                "type": "Int",
+                "description": "Duration of the poll in minutes for a Tweet with a poll.",
+                "optional": true
+              }
+            ],
+            "description": "Action to post a new tweet with the specified text and optional poll options."
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ],
+            "description": "Internal action to interact with the Twitter API endpoint."
+          },
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "clientSecret",
+                "type": "String"
+              },
+              {
+                "name": "clientId",
+                "type": "String"
+              }
+            ],
+            "description": "Action to configure the Twitter driver with client credentials."
+          }
+        ],
+        "fields": [
+          {
+            "name": "user",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "username",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Field representing a Twitter user, providing access to their tweets, followers, mentions, and liked tweets."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Internal field to interact with the Twitter API endpoint."
+          },
+          {
+            "name": "tweets",
+            "type": "TweetCollection",
+            "params": [],
+            "description": "Field to manage a collection of tweets, allowing retrieval of individual tweets or pages of tweets."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": true
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Tweet"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "Field to parse and process tweet data."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Field to test various functionalities of the Twitter driver."
+          }
+        ],
+        "events": [
+          {
+            "name": "statusChanged",
+            "type": "Void",
+            "description": "Event triggered when the status of the Twitter driver changes."
+          }
+        ]
+      },
+      {
+        "name": "TweetCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Tweet",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "The tweet id"
+              }
+            ],
+            "description": "Retrieves a single tweet by its unique identifier."
+          },
+          {
+            "name": "page",
+            "type": "TweetPage",
+            "params": [
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "pagination_token",
+                "type": "String",
+                "description": "Returns results with a Tweet ID less than (that is, older than) the specified ID. The ID specified is exclusive and responses will not include it.",
+                "optional": true
+              }
+            ],
+            "description": "Retrieves a page of tweets based on the specified query and optional pagination token."
+          }
+        ],
+        "description": "TweetCollection manages a collection of tweets, allowing retrieval of individual tweets or pages of tweets."
+      },
+      {
+        "name": "TweetPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Tweet",
+            "description": "A list of tweets included in the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "TweetPage",
+            "description": "A reference to the next page of tweets, allowing for pagination."
+          }
+        ],
+        "description": "TweetPage represents a paginated collection of tweets, providing navigation to the next page."
+      },
+      {
+        "name": "FollowersCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "FollowersPage",
+            "params": [
+              {
+                "name": "pagination_token",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "max_results",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "since_id",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Retrieves a page of followers with optional pagination token, maximum results, and starting point."
+          }
+        ],
+        "description": "FollowersCollection manages a collection of followers, allowing retrieval of pages of followers."
+      },
+      {
+        "name": "FollowersPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "User",
+            "description": "A list of user profiles representing the followers included in the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "FollowersPage",
+            "description": "A reference to the next page of followers, allowing for pagination."
+          }
+        ],
+        "description": "FollowersPage represents a paginated collection of followers, providing navigation to the next page."
+      },
+      {
+        "name": "MentionsCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "MentionsPage",
+            "params": [
+              {
+                "name": "pagination_token",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "max_results",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "since_id",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Retrieves a page of mentions with optional pagination token, maximum results, and starting point."
+          }
+        ],
+        "description": "MentionsCollection manages a collection of mentions, allowing retrieval of pages of mentions."
+      },
+      {
+        "name": "MentionsPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Tweet",
+            "description": "A list of tweets included in the current page that mention the user."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "MentionsPage",
+            "description": "A reference to the next page of mentions, allowing for pagination."
+          }
+        ],
+        "description": "MentionsPage represents a paginated collection of mentions, providing navigation to the next page."
+      },
+      {
+        "name": "LikedCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "LikedPage",
+            "params": [
+              {
+                "name": "pagination_token",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "max_results",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Retrieves a page of liked tweets with optional pagination token and maximum results."
+          }
+        ],
+        "description": "LikedCollection manages a collection of liked tweets, allowing retrieval of pages of liked tweets."
+      },
+      {
+        "name": "LikedPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Tweet"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "LikedPage"
+          }
+        ],
+        "description": "LikedPage represents a paginated collection of liked tweets, providing navigation to the next page."
+      },
+      {
+        "name": "LikingCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "LikingPage",
+            "params": [
+              {
+                "name": "pagination_token",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "max_results",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "description": "LikingCollection manages a collection of users who liked a tweet, allowing retrieval of pages of such users."
+      },
+      {
+        "name": "LikingPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "User"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "LikingPage"
+          }
+        ],
+        "description": "LikingPage represents a paginated collection of users who liked a tweet, providing navigation to the next page."
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "username",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "tweets",
+            "type": "TweetCollection"
+          },
+          {
+            "name": "followers",
+            "type": "FollowersCollection"
+          },
+          {
+            "name": "mentions",
+            "type": "MentionsCollection"
+          },
+          {
+            "name": "liked",
+            "type": "LikedCollection"
+          }
+        ],
+        "description": "User type represents a Twitter user, providing access to their tweets, followers, mentions, and liked tweets."
+      },
+      {
+        "name": "Tweet",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the tweet."
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The content of the tweet."
+          },
+          {
+            "name": "likingUsers",
+            "type": "LikingCollection",
+            "description": "Collection of users who have liked the tweet."
+          }
+        ],
+        "description": "Tweet type represents an individual tweet, providing access to its content and users who liked it."
+      },
+      {
+        "name": "MaxRedirectsError",
+        "description": "MaxRedirectsError type represents an error that occurs when the maximum number of redirects is exceeded during an API call."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testTweet",
+            "type": "Boolean"
+          }
+        ],
+        "description": "Tests type provides actions to test various functionalities of the Twitter driver."
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "endpoint": "sys-process:endpointUrl"
+  }
+}

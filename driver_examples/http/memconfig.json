@@ -1,0 +1,290 @@
+{
+  "lockSchema": true,
+  "dependencies": {
+    "sys_http": "sys-http:"
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Make HTTP requests",
+        "fields": [
+          {
+            "name": "get",
+            "description": "A resource obtained via a GET request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL of the resource to retrieve"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true,
+                "description": "Optional headers for the GET request"
+              }
+            ]
+          },
+          {
+            "name": "authenticated",
+            "description": "An HTTP client that can make authenticated requests using Membrane's Transparent Authentication. Used by drivers to use avoid requiring an API key/secret pair.",
+            "type": "Authenticated",
+            "params": [
+              {
+                "name": "api",
+                "description": "The API to use. Check https://www.membrane.io/docs for a list of APIs that support this",
+                "type": "String"
+              },
+              {
+                "name": "authId",
+                "description": "An arbitrary gref that uniquely identifies this program.",
+                "type": "Ref",
+                "ofType": "String"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "name": "post",
+            "description": "Performs a POST request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL to send the POST request to"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true,
+                "description": "Optional headers for the POST request"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true,
+                "description": "The body of the POST request"
+              }
+            ]
+          },
+          {
+            "name": "put",
+            "description": "Performs a PUT request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL to send the PUT request to"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true,
+                "description": "Optional headers for the PUT request"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true,
+                "description": "The body of the PUT request"
+              }
+            ]
+          },
+          {
+            "name": "patch",
+            "description": "Performs a PATCH request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL to send the PATCH request to"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true,
+                "description": "Optional headers for the PATCH request"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true,
+                "description": "The body of the PATCH request"
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "description": "Performs a DELETE request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String",
+                "description": "The URL to send the DELETE request to"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true,
+                "description": "Optional headers for the DELETE request"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true,
+                "description": "The body of the DELETE request"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Resource",
+        "description": "An HTTP response",
+        "fields": [
+          {
+            "name": "status",
+            "description": "HTTP status code",
+            "type": "Int",
+            "params": []
+          },
+          {
+            "name": "headers",
+            "description": "HTTP headers returned by server",
+            "type": "String",
+            "params": []
+          },
+          {
+            "name": "body",
+            "description": "Body of the request as a string",
+            "type": "String",
+            "params": []
+          }
+        ]
+      },
+      {
+        "name": "Authenticated",
+        "fields": [
+          {
+            "name": "get",
+            "description": "A resource obtained via a GET request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "hasAuthenticated",
+            "description": "Whether the user has authenticated with this API",
+            "type": "Boolean"
+          }
+        ],
+        "actions": [
+          {
+            "name": "createLink",
+            "description": "Creates a link to authenticate the user with an API and enable Membrane's Transparent Auth. Valid values for `api`: `google-docs`",
+            "type": "String"
+          },
+          {
+            "name": "post",
+            "description": "Performs a POST request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "put",
+            "description": "Performs a PUT request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "patch",
+            "description": "Performs a PATCH request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "delete",
+            "description": "Performs a DELETE request",
+            "type": "Resource",
+            "params": [
+              {
+                "name": "url",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

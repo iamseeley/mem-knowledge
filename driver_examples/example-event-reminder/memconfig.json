@@ -1,0 +1,109 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Example of a Membrane program to schedule a recurring event reminder.",
+        "actions": [
+          {
+            "name": "create",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              },
+              {
+                "name": "atDate",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "repeat",
+                "type": "Boolean",
+                "optional": true
+              }
+            ],
+            "description": "Create a new event reminder."
+          },
+          {
+            "name": "sendNotifications",
+            "type": "Void",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int"
+              }
+            ],
+            "description": "Send notifications for a reminder."
+          }
+        ],
+        "fields": [
+          {
+            "name": "find",
+            "type": "Reminder",
+            "params": [
+              {
+                "name": "id",
+                "type": "Int",
+                "ofType": "Reminder"
+              }
+            ],
+            "description": "Find a reminder by its ID."
+          },
+          {
+            "name": "reminders",
+            "type": "List",
+            "ofType": "Reminder",
+            "description": "List of reminders."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Status of the event reminder program."
+          }
+        ]
+      },
+      {
+        "name": "Reminder",
+        "fields": [
+          {
+            "name": "text",
+            "hints": {
+              "primary": true
+            },
+            "type": "String",
+            "description": "The text of the reminder"
+          },
+          {
+            "name": "id",
+            "type": "Int",
+            "description": "The unique identifier of the reminder"
+          },
+          {
+            "name": "repeat",
+            "type": "Boolean",
+            "description": "Indicates if the reminder should repeat"
+          },
+          {
+            "name": "atDate",
+            "type": "String",
+            "description": "The date and time of the reminder"
+          }
+        ],
+        "actions": [
+          {
+            "name": "delete",
+            "type": "Void",
+            "description": "Delete the reminder"
+          }
+        ],
+        "description": "Collection of reminder items"
+      }
+    ]
+  },
+  "dependencies": {
+    "sms": "sms:",
+    "email": "email:"
+  }
+}

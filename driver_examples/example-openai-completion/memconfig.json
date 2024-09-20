@@ -1,0 +1,59 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "explain",
+            "type": "String",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              }
+            ],
+            "description": "Explains the given text"
+          },
+          {
+            "name": "grammar",
+            "type": "String",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              }
+            ],
+            "description": "Generates grammar for the given text"
+          },
+          {
+            "name": "summarize",
+            "type": "String",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              }
+            ],
+            "description": "Summarizes the given text"
+          },
+          {
+            "name": "sentimentAnalysis",
+            "type": "String",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              }
+            ],
+            "description": "Analyzes the sentiment of the given text"
+          }
+        ],
+        "description": "OpenAI Completion example program"
+      }
+    ]
+  },
+  "dependencies": {
+    "models": "openai:models"
+  }
+}

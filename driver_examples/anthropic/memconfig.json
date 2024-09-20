@@ -1,0 +1,84 @@
+{
+  "tags": ["driver", "ai"],
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Integrates Anthropic's language model API with Membrane",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "apiKey",
+                "type": "String"
+              },
+              {
+                "name": "defaults",
+                "type": "Json",
+                "description": "Default parameters to pass to the /complete API endpoint"
+              }
+            ]
+          },
+          {
+            "name": "complete",
+            "type": "String",
+            "params": [
+              {
+                "name": "prompt",
+                "type": "String",
+                "description": "The prompt that you want Claude to complete."
+              },
+              {
+                "name": "max_tokens_to_sample",
+                "type": "Int",
+                "optional": true,
+                "description": "The maximum number of tokens to generate before stopping. Note that our models may stop before reaching this maximum. This parameter only specifies the absolute maximum number of tokens to generate."
+              },
+              {
+                "name": "temperature",
+                "type": "Float",
+                "optional": true,
+                "description": "Amount of randomness injected into the response. Defaults to 1. Ranges from 0 to 1. Use temp closer to 0 for analytical / multiple choice, and closer to 1 for creative and generative tasks."
+              },
+              {
+                "name": "model",
+                "type": "String",
+                "optional": true,
+                "description": "The model that will complete your prompt. \"claude-2\" or \"claude-instant-1\""
+              },
+              {
+                "name": "top_p",
+                "type": "Float",
+                "optional": true,
+                "description": "Use nucleus sampling. You should either alter temperature or top_p, but not both."
+              },
+              {
+                "name": "top_k",
+                "type": "Int",
+                "optional": true,
+                "description": "Only sample from the top K options for each subsequent token."
+              },
+              {
+                "name": "stop_sequences",
+                "type": "Json",
+                "optional": true,
+                "description": "Sequences that will cause the model to stop generating completion text. Must be an array of strings."
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

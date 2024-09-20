@@ -1,0 +1,8 @@
+{
+  "name": "example-event-reminder",
+  "license": "MIT",
+  "dependencies": {
+    "chrono-node": "^2.6.5",
+    "moment-timezone": "^0.5.43"
+  }
+}

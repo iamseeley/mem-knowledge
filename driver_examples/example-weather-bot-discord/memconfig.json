@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Program to create a Discord command and use it to get the weather.",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "guildId",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "handleEvent",
+            "type": "Void"
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "discord": "discord:",
+    "weather": "weather:"
+  }
+}

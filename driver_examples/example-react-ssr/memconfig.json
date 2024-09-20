@@ -1,0 +1,17 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Render React components server-side using renderToString.",
+        "actions": [],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  }
+}

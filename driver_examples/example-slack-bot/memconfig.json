@@ -1,0 +1,79 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "fields": [
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The status of the Slack bot"
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "description": "Configures the Slack bot with the provided token",
+            "type": "Void",
+            "params": [
+              {
+                "name": "token",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "sendMsg",
+            "description": "Sends a message using the provided text and recipient name",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              },
+              {
+                "name": "name",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String"
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String"
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ],
+            "description": "Sends an HTTP request to the specified endpoint"
+          }
+        ],
+        "description": "Slack Bot program example"
+      }
+    ]
+  },
+  "dependencies": {
+    "openai": "openai:",
+    "http": "http:"
+  }
+}

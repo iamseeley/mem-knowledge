@@ -1,0 +1,10 @@
+{
+  "name": "membrane-driver-rss",
+  "version": "0.0.1",
+  "keywords": [],
+  "author": "jhonny@membrane.io",
+  "license": "MIT",
+  "dependencies": {
+    "feed": "^4.2.2"
+  }
+}

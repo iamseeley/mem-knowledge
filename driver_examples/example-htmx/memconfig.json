@@ -1,0 +1,23 @@
+{
+  "tags": [
+    "example",
+    "htmx",
+    "endpoint",
+    "form"
+  ],
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Serves an interactive htmx-based page on its endpoint.",
+        "actions": [],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  }
+}

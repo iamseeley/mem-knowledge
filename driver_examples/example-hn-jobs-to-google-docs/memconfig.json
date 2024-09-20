@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "keywords",
+                "type": "String"
+              },
+              {
+                "name": "documentId",
+                "type": "String"
+              }
+            ],
+            "description": "Configures the keywords and document ID for fetching and sending Hacker News jobs to a Google Docs document"
+          },
+          {
+            "name": "watchJobs",
+            "type": "Void",
+            "description": "Watches for new Hacker News jobs and sends them to the configured Google Docs document"
+          }
+        ],
+        "description": "Program for fetching Hacker News jobs and sending them to a Google Docs document"
+      }
+    ]
+  },
+  "dependencies": {
+    "docs": "google-docs:documents",
+    "stories": "hn:items.page(page:1,pageSize:30,topic:\"job\")"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "keywords",
+                "description": "Keywords separated by comma",
+                "type": "String"
+              },
+              {
+                "name": "notionPageId",
+                "description": "Notion page id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "watchNews",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "pages": "notion:pages",
+    "stories": "hn:items.page(page:1,pageSize:30,topic:\"top\")"
+  }
+}

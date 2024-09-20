@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "sys_email": "sys-email:"
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Send yourself emails",
+        "actions": [
+          {
+            "name": "send",
+            "description": "Sends an email to the configured address (i.e. the email you signed up with).",
+            "type": "Void",
+            "params": [
+              {
+                "name": "subject",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String"
+              }
+            ],
+            "hints": {}
+          }
+        ],
+        "fields": [],
+        "events": []
+      }
+    ]
+  }
+}

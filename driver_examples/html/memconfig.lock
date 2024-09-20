@@ -1,0 +1,57 @@
+{
+  "types": {
+    "graph": {
+      "gref_hash": "39b0ef014621e099053664bbc90f08394986b25a8da92bb7ea0aa1cb498104fd",
+      "type": "sys-graph:Root"
+    }
+  },
+  "imports": [
+    {
+      "name": "sys-graph",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "",
+            "actions": [],
+            "fields": [
+              {
+                "name": "typeInfo",
+                "description": "Allows programs to inspect the type of an arbitrary gref. The type info is returned as a JSON string",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "gref",
+                    "description": "The node of which the type info is being requested",
+                    "type": "Gref",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "argsInfo",
+                "description": "Allows programs to inspect the args accepted by an arbitrary gref. The args info is returned as a JSON string",
+                "type": "String",
+                "params": [
+                  {
+                    "name": "gref",
+                    "description": "The node of which the args info is being requested",
+                    "type": "Gref",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "events": []
+          }
+        ],
+        "imports": []
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    }
+  ]
+}

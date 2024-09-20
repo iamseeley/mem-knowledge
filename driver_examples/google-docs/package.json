@@ -1,0 +1,11 @@
+{
+  "name": "googledocs",
+  "version": "0.0.1",
+  "description": "Google Docs driver for Membrane",
+  "author": "Juan Campa <juancampa@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@badgateway/oauth2-client": "^2.4.1"
+  }
+}

@@ -1,0 +1,812 @@
+{
+  "dependencies": {
+    "http": "http:"
+  },
+  "expressions": {
+    "eventUrl": {
+      "description": "Calendar Event",
+      "type": "text",
+      "searchIn": "https://calendar.google.com",
+      "regex": "data-eventid=\"[^\"]+\""
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Manages the integration with Google Calendar API.",
+        "fields": [
+          {
+            "name": "calendars",
+            "type": "CalendarCollection",
+            "description": "A collection of calendar resources available to the user."
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The current status of the Google Calendar connection."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": true
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Event"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "Parses the provided name and value into an Event object."
+          },
+          {
+            "name": "authId",
+            "type": "String",
+            "description": "The authorization identifier for the Google Calendar API."
+          },
+          {
+            "name": "blob",
+            "type": "String",
+            "description": "A blob of data associated with the Google Calendar connection."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "A collection of tests for the Google Calendar driver."
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "clientId",
+                "type": "String"
+              },
+              {
+                "name": "clientSecret",
+                "type": "String"
+              },
+              {
+                "name": "token",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Configures the Google Calendar connection with the provided client credentials."
+          },
+          {
+            "name": "checkStatus",
+            "type": "Boolean",
+            "description": "Checks the status of the Google Calendar connection and returns a boolean value."
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ],
+            "description": "Handles HTTP requests sent to the Google Calendar driver."
+          }
+        ]
+      },
+      {
+        "name": "Tests",
+        "description": "Contains tests for the Google Calendar integration.",
+        "fields": [],
+        "actions": [
+          {
+            "name": "testGetAllCalendars",
+            "type": "Boolean"
+          }
+        ]
+      },
+      {
+        "name": "CalendarCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Calendar",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "CalendarPage",
+            "description": "All the calendars",
+            "params": [
+              {
+                "name": "maxResults",
+                "type": "Int",
+                "description": "Maximum number of threads to return.",
+                "optional": true
+              },
+              {
+                "name": "minAcessRole",
+                "type": "String",
+                "description": "The minimum access role for the user in the returned entries.",
+                "optional": true
+              },
+              {
+                "name": "pageToken",
+                "type": "String",
+                "description": "Page token to retrieve a specific page of results in the list",
+                "optional": true
+              },
+              {
+                "name": "showDeleted",
+                "type": "Boolean",
+                "description": "Whether to include deleted calendar list entries in the result.",
+                "optional": true
+              },
+              {
+                "name": "showHidden",
+                "type": "Boolean",
+                "description": "Whether to show hidden entries.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "description": "Represents a collection of calendars."
+      },
+      {
+        "name": "CalendarPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Calendar"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "CalendarPage"
+          }
+        ],
+        "description": "Represents a page of calendars."
+      },
+      {
+        "name": "Calendar",
+        "fields": [
+          {
+            "name": "id",
+            "description": "Calendar identifier",
+            "type": "String"
+          },
+          {
+            "name": "etag",
+            "description": "ETag of the resource",
+            "type": "String"
+          },
+          {
+            "name": "summary",
+            "hints": {
+              "primary": true
+            },
+            "description": "Title of the calendar",
+            "type": "String"
+          },
+          {
+            "name": "description",
+            "description": "Description of the calendar",
+            "type": "String"
+          },
+          {
+            "name": "location",
+            "description": "Geographic location of the calendar as free-form text",
+            "type": "String"
+          },
+          {
+            "name": "timeZone",
+            "description": "The time zone of the calendar",
+            "type": "String"
+          },
+          {
+            "name": "events",
+            "description": "Events in this calendar",
+            "type": "EventCollection"
+          }
+        ],
+        "actions": [
+          {
+            "name": "renewWebhook",
+            "type": "Void",
+            "hints": {
+              "hidden": true
+            }
+          },
+          {
+            "name": "newEvent",
+            "type": "Void",
+            "params": [
+              {
+                "name": "summary",
+                "type": "String",
+                "description": "Title of the event.",
+                "optional": true
+              },
+              {
+                "name": "description",
+                "type": "String",
+                "description": "Description of the event. Can contain HTML. Optional.",
+                "optional": true
+              },
+              {
+                "name": "location",
+                "type": "String",
+                "description": "Geographic location of the event as free-form text. Optional.",
+                "optional": true
+              },
+              {
+                "name": "recurrence",
+                "type": "String",
+                "description": "RRULE, EXRULE, RDATE and EXDATE lines for a recurring event.",
+                "optional": true
+              },
+              {
+                "name": "conferenceDataVersion",
+                "type": "Int",
+                "description": "Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support.",
+                "optional": true
+              },
+              {
+                "name": "startDateTime",
+                "type": "String",
+                "description": "The (inclusive) end time of the event.",
+                "optional": true
+              },
+              {
+                "name": "endDateTime",
+                "type": "String",
+                "description": "The (exclusive) end time of the event.",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "description": "Represents a Google Calendar."
+      },
+      {
+        "name": "CalendarList",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier for the calendar."
+          },
+          {
+            "name": "kind",
+            "type": "String",
+            "description": "The type of the resource."
+          },
+          {
+            "name": "etag",
+            "type": "String",
+            "description": "The ETag of the resource."
+          },
+          {
+            "name": "summary",
+            "type": "String",
+            "description": "The summary of the calendar list."
+          },
+          {
+            "name": "description",
+            "type": "String",
+            "description": "The description of the calendar list."
+          },
+          {
+            "name": "location",
+            "type": "String",
+            "description": "The location of the calendar list."
+          },
+          {
+            "name": "timeZone",
+            "type": "String",
+            "description": "The time zone of the calendar list."
+          },
+          {
+            "name": "summaryOverride",
+            "type": "String",
+            "description": "The summary override of the calendar list."
+          },
+          {
+            "name": "colorId",
+            "type": "String",
+            "description": "The color identifier of the calendar list."
+          },
+          {
+            "name": "backgroundColor",
+            "type": "String",
+            "description": "The background color of the calendar list."
+          },
+          {
+            "name": "foregroundColor",
+            "type": "String",
+            "description": "The foreground color of the calendar list."
+          },
+          {
+            "name": "hidden",
+            "type": "Boolean",
+            "description": "Indicates if the calendar list is hidden."
+          },
+          {
+            "name": "selected",
+            "type": "Boolean",
+            "description": "Indicates if the calendar list is selected."
+          },
+          {
+            "name": "primary",
+            "type": "Boolean",
+            "description": "Indicates if the calendar list is the primary calendar."
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean",
+            "description": "Indicates if the calendar list is deleted."
+          },
+          {
+            "name": "accessRole",
+            "type": "String",
+            "description": "The access role of the calendar list."
+          },
+          {
+            "name": "defaultReminders",
+            "type": "List",
+            "ofType": "Reminder",
+            "description": "The default reminders for the calendar list."
+          }
+        ],
+        "description": "Represents a collection of calendar lists."
+      },
+      {
+        "name": "Reminder",
+        "fields": [
+          {
+            "name": "method",
+            "type": "String"
+          },
+          {
+            "name": "minutes",
+            "type": "Int"
+          }
+        ],
+        "description": "Represents a reminder for an event."
+      },
+      {
+        "name": "EventCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Event",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "The ID of the event."
+              }
+            ],
+            "description": "Represents a single event."
+          },
+          {
+            "name": "page",
+            "type": "EventPage",
+            "params": [
+              {
+                "name": "calendar",
+                "type": "String",
+                "optional": true,
+                "description": "The calendar to retrieve events from."
+              },
+              {
+                "name": "alwaysIncludeEmail",
+                "type": "Boolean",
+                "optional": true
+              },
+              {
+                "name": "iCalUID",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "maxAttendees",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "maxResults",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "orderBy",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "pageToken",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "privateExtendedProperty",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "q",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "showDeleted",
+                "type": "Boolean",
+                "optional": true
+              },
+              {
+                "name": "showHiddenInvitations",
+                "type": "Boolean",
+                "optional": true
+              },
+              {
+                "name": "singleEvents",
+                "type": "Boolean",
+                "optional": true
+              },
+              {
+                "name": "timeMax",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "timeMin",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "timeZone",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "updateMin",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Represents a page of events."
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Collection of Google Calendar events"
+      },
+      {
+        "name": "EventPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Event"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "EventPage"
+          }
+        ],
+        "description": "Represents a page of events."
+      },
+      {
+        "name": "Event",
+        "actions": [
+          {
+            "name": "emitNotification",
+            "description": "Notify subscribers of the notification event",
+            "type": "Void",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "secondsBefore",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "start",
+                "type": "Int",
+                "description": "Start time of the event when the notification was scheduled. Used to verify that the event has not been moved.",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "setSummary",
+            "description": "Sets the summary of the event",
+            "type": "Void",
+            "params": [
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "addAttendee",
+            "description": "Add attendee to the event",
+            "type": "Void",
+            "params": [
+              {
+                "name": "email",
+                "type": "String"
+              },
+              {
+                "name": "displayName",
+                "type": "String"
+              },
+              {
+                "name": "optional",
+                "type": "Boolean",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "setDescription",
+            "description": "Sets the description of the event (HTML)",
+            "type": "Void",
+            "params": [
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier of the event"
+          },
+          {
+            "name": "summary",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Summary of the event"
+          },
+          {
+            "name": "description",
+            "type": "String",
+            "description": "Description of the event (HTML)"
+          },
+          {
+            "name": "end",
+            "type": "EventTime",
+            "description": "End time of the event"
+          },
+          {
+            "name": "start",
+            "type": "EventTime",
+            "description": "Start time of the event"
+          },
+          {
+            "name": "recurrence",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of recurrence rules for the event"
+          },
+          {
+            "name": "attendees",
+            "type": "List",
+            "ofType": "Attendee",
+            "description": "List of attendees for the event"
+          },
+          {
+            "name": "instances",
+            "type": "EventInstanceCollection",
+            "description": "Collection of event instances"
+          }
+        ],
+        "events": [
+          {
+            "type": "String",
+            "name": "notification",
+            "params": [
+              {
+                "name": "secondsBefore",
+                "type": "Int"
+              }
+            ],
+            "description": "Notification event"
+          }
+        ],
+        "description": "Represents a Google Calendar event."
+      },
+      {
+        "name": "Attendee",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "email",
+            "type": "String"
+          },
+          {
+            "name": "displayName",
+            "type": "String"
+          },
+          {
+            "name": "organizer",
+            "type": "Boolean"
+          },
+          {
+            "name": "self",
+            "type": "Boolean"
+          },
+          {
+            "name": "resource",
+            "type": "Boolean"
+          },
+          {
+            "name": "optional",
+            "type": "Boolean"
+          },
+          {
+            "name": "responseStatus",
+            "type": "String"
+          },
+          {
+            "name": "comment",
+            "type": "String"
+          },
+          {
+            "name": "additionalGuests",
+            "type": "Int"
+          }
+        ],
+        "description": "Represents an attendee of an event."
+      },
+      {
+        "name": "EventInstanceCollection",
+        "fields": [
+          {
+            "name": "page",
+            "type": "EventInstancePage",
+            "params": [
+              {
+                "name": "pageToken",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          },
+          {
+            "name": "one",
+            "type": "EventInstance",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          }
+        ],
+        "description": "Represents a collection of event instances."
+      },
+      {
+        "name": "EventInstancePage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "EventInstance"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "EventInstancePage"
+          }
+        ],
+        "description": "Represents a page of event instances."
+      },
+      {
+        "name": "EventInstance",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "summary",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "end",
+            "type": "EventTime"
+          },
+          {
+            "name": "start",
+            "type": "EventTime"
+          },
+          {
+            "name": "recurrence",
+            "type": "List",
+            "ofType": "String"
+          },
+          {
+            "name": "instances",
+            "type": "EventInstanceCollection"
+          }
+        ],
+        "description": "Represents an instance of a Google Calendar event."
+      },
+      {
+        "name": "EventTime",
+        "fields": [
+          {
+            "name": "date",
+            "type": "String"
+          },
+          {
+            "name": "dateTime",
+            "type": "String"
+          },
+          {
+            "name": "timeZone",
+            "type": "String"
+          }
+        ],
+        "actions": [],
+        "events": [],
+        "description": "Represents the time of an event."
+      }
+    ]
+  }
+}

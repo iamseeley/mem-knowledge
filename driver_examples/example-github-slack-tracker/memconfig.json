@@ -1,0 +1,36 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Send a Slack message when a commit is pushed to Github.",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "repo",
+                "type": "String",
+                "description": "The GitHub repository with format 'owner/repo'."
+              },
+              {
+                "name": "slackUrl",
+                "description": "The URL of the Slack webhook.",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "handleCommit",
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "github": "github:"
+  }
+}

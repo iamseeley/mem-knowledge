@@ -1,0 +1,42 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Send a Discord message when a commit is pushed to Github.",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "repo",
+                "type": "String",
+                "description": "The GitHub repository with format 'owner/repo'."
+              },
+              {
+                "name": "discordUrl",
+                "description": "The URL of the Discord webhook.",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "handleCommit",
+            "type": "Void"
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "github": "github:"
+  }
+}

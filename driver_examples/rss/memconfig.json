@@ -1,0 +1,91 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "feedOptions",
+                "type": "Json"
+              },
+              {
+                "name": "feed",
+                "type": "String"
+              }
+            ],
+            "description": "Configures the RSS feed with the specified options"
+          },
+          {
+            "name": "addItem",
+            "type": "Void",
+            "params": [
+              {
+                "name": "feed",
+                "type": "String"
+              },
+              {
+                "name": "item",
+                "type": "Json"
+              }
+            ],
+            "description": "Adds a new item to the RSS feed"
+          },
+          {
+            "name": "addCategory",
+            "type": "Void",
+            "params": [
+              {
+                "name": "feed",
+                "type": "String"
+              },
+              {
+                "name": "category",
+                "type": "String"
+              }
+            ],
+            "description": "Adds a new category to the RSS feed"
+          },
+          {
+            "name": "addContributor",
+            "type": "Void",
+            "params": [
+              {
+                "name": "feed",
+                "type": "String"
+              },
+              {
+                "name": "contributor",
+                "description": "Format: name, email, link",
+                "type": "Json"
+              }
+            ],
+            "description": "Adds a new contributor to the RSS feed"
+          }
+        ],
+        "fields": [
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Collection of test cases for RSS feed management"
+          }
+        ],
+        "description": "RSS Feed Management Driver"
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testCreateRss",
+            "type": "Boolean",
+            "description": "Action to test the creation of an RSS feed"
+          }
+        ],
+        "description": "Collection of RSS testing actions"
+      }
+    ]
+  }
+}

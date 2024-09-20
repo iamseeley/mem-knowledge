@@ -1,0 +1,33 @@
+{
+  "dependencies": {
+    "gdocs": "google-docs:",
+    "http": "http:",
+    "github": "github:"
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Generate a weekly report of github activity on google docs.",
+        "fields": [],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "org",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "report",
+            "params": [],
+            "type": "Void"
+          }
+        ]
+      }
+    ]
+  }
+}

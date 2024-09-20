@@ -1,0 +1,33 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "keywords",
+                "type": "String",
+                "description": "The keywords to use for job search"
+              }
+            ],
+            "description": "Configures the driver with specific keywords for job search"
+          },
+          {
+            "name": "watchJobs",
+            "type": "Void",
+            "description": "Starts watching for new job postings"
+          }
+        ],
+        "description": "Save Hacker News Jobs in Google Sheets"
+      }
+    ]
+  },
+  "dependencies": {
+    "sheet": "google-sheets:spreadsheets.one(id:\"<spreadsheetId>\").sheets.one(sheetId:\"<sheetId>\")",
+    "stories": "hn:items.page(page:1,pageSize:30,topic:\"job\")"
+  }
+}

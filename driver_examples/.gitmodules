@@ -1,0 +1,201 @@
+[submodule "github"]
+	path = github
+	url = https://github.com/membrane-io/membrane-driver-github.git
+[submodule "hn"]
+	path = hn
+	url = https://github.com/membrane-io/membrane-driver-hn.git
+[submodule "google-docs"]
+	path = google-docs
+	url = https://github.com/membrane-io/membrane-driver-google-docs.git
+[submodule "google-calendar"]
+	path = google-calendar
+	url = https://github.com/membrane-io/membrane-driver-google-calendar.git
+[submodule "notion"]
+	path = notion
+	url = https://github.com/membrane-io/membrane-driver-notion.git
+[submodule "vercel"]
+	path = vercel
+	url = https://github.com/membrane-io/membrane-driver-vercel.git
+[submodule "twitter"]
+	path = twitter
+	url = https://github.com/membrane-io/membrane-driver-twitter.git
+[submodule "http"]
+	path = http
+	url = https://github.com/membrane-io/membrane-http
+[submodule "drawer"]
+	path = drawer
+	url = https://github.com/membrane-io/membrane-drawer-program.git
+[submodule "slack"]
+	path = slack
+	url = https://github.com/membrane-io/membrane-driver-slack.git
+[submodule "html"]
+	path = html
+	url = https://github.com/membrane-io/html.git
+[submodule "airtable"]
+	path = airtable
+	url = https://github.com/membrane-io/membrane-driver-airtable.git
+[submodule "openai"]
+	path = openai
+	url = https://github.com/membrane-io/membrane-driver-openai.git
+[submodule "sms"]
+	path = sms
+	url = https://github.com/membrane-io/membrane-sms
+[submodule "discord"]
+	path = discord
+	url = https://github.com/membrane-io/membrane-driver-discord.git
+[submodule "mailchimp"]
+	path = mailchimp
+	url = https://github.com/membrane-io/membrane-driver-mailchimp
+[submodule "weather"]
+	path = weather
+	url = https://github.com/membrane-io/membrane-weather-driver
+[submodule "pinecone"]
+	path = pinecone
+	url = https://github.com/membrane-io/membrane-driver-pinecone
+[submodule "email"]
+	path = email
+	url = https://github.com/membrane-io/membrane-email
+[submodule "space-traders"]
+	path = space-traders
+	url = https://github.com/membrane-io/membrane-driver-spacetraders.git
+[submodule "example-htmx"]
+	path = example-htmx
+	url = https://github.com/membrane-io/membrane-example-htmx.git
+[submodule "example-html"]
+	path = example-html
+	url = https://github.com/membrane-io/membrane-example-html.git
+[submodule "example-json-api"]
+	path = example-json-api
+	url = https://github.com/membrane-io/membrane-example-json-api.git
+[submodule "example-github-action-alert"]
+	path = example-github-action-alert
+	url = https://github.com/membrane-io/example-github-action-alert.git
+[submodule "example-hello-world"]
+	path = example-hello-world
+	url = https://github.com/membrane-io/example-hello-world.git
+[submodule "example-job-application-form"]
+	path = example-job-application-form
+	url = https://github.com/membrane-io/example-job-application-form.git
+[submodule "example-tic-tac-toe"]
+	path = example-tic-tac-toe
+	url = https://github.com/membrane-io/example-tic-tac-toe.git
+[submodule "example-umbrella-alert-with-driver"]
+	path = example-umbrella-alert-with-driver
+	url = https://github.com/membrane-io/example-umbrella-alert-with-driver.git
+[submodule "example-umbrella-alert-with-fetch"]
+	path = example-umbrella-alert-with-fetch
+	url = https://github.com/membrane-io/example-umbrella-alert-with-fetch.git
+[submodule "example-weekly-report"]
+	path = example-weekly-report
+	url = https://github.com/membrane-io/example-weekly-report.git
+[submodule "example-slack-bot"]
+	path = example-slack-bot
+	url = https://github.com/membrane-io/slack-bot.git
+[submodule "example-mailchimp-subscriber-alert"]
+	path = example-mailchimp-subscriber-alert
+	url = https://github.com/membrane-io/membrane-program-mailchimp-subscriptions.git
+[submodule "example-todo"]
+	path = example-todo
+	url = https://github.com/membrane-io/membrane-program-todo.git
+[submodule "example-space-traders"]
+	path = example-space-traders
+	url = https://github.com/membrane-io/membrane-example-space-traders
+[submodule "example-follow-hn"]
+	path = example-follow-hn
+	url = https://github.com/membrane-io/membrane-example-follow-hn.git
+[submodule "example-daily-advices"]
+	path = example-daily-advices
+	url = https://github.com/membrane-io/example-daily-advices.git
+[submodule "example-update-cargo-version"]
+	path = example-update-cargo-version
+	url = https://github.com/membrane-io/example-update-cargo-version.git
+[submodule "example-github-discord-tracker"]
+	path = example-github-discord-tracker
+	url = https://github.com/membrane-io/example-github-discord-tracker.git
+[submodule "example-wifi-qr-generator"]
+	path = example-wifi-qr-generator
+	url = https://github.com/membrane-io/example-wifi-qr-generator.git
+[submodule "example-notion-monitor-hn"]
+	path = example-notion-monitor-hn
+	url = https://github.com/membrane-io/example-notion-monitor-hn.git
+[submodule "example-mailchimp-to-airtable"]
+	path = example-mailchimp-to-airtable
+	url = https://github.com/membrane-io/example-mailchimp-to-airtable.git
+[submodule "example-mailchimp-subscriptions-sms"]
+	path = example-mailchimp-subscriptions-sms
+	url = https://github.com/membrane-io/example-mailchimp-subscriptions-sms.git
+[submodule "example-calculator"]
+	path = example-calculator
+	url = https://github.com/membrane-io/example-calculator.git
+[submodule "example-membrane-agi-agent"]
+	path = example-membrane-agi-agent
+	url = https://github.com/membrane-io/membrane-agi-2.git
+[submodule "example-github-slack-tracker"]
+	path = example-github-slack-tracker
+	url = https://github.com/membrane-io/example-github-slack-tracker.git
+[submodule "example-openai-completion"]
+	path = example-openai-completion
+	url = https://github.com/membrane-io/example-openai-completion.git
+[submodule "example-weather-bot-discord"]
+	path = example-weather-bot-discord
+	url = https://github.com/membrane-io/example-weather-bot-discord.git
+[submodule "example-hn-jobs-to-google-docs"]
+	path = example-hn-jobs-to-google-docs
+	url = https://github.com/membrane-io/example-hn-jobs-to-google-docs.git
+[submodule "google-sheets"]
+	path = google-sheets
+	url = https://github.com/membrane-io/membrane-driver-google-sheets.git
+[submodule "rss"]
+	path = rss
+	url = https://github.com/membrane-io/membrane-program-rss.git
+[submodule "example-google-sheets-hn-jobs"]
+	path = example-google-sheets-hn-jobs
+	url = https://github.com/membrane-io/example-google-sheets-hn-jobs.git
+[submodule "example-rss-hn-jobs"]
+	path = example-rss-hn-jobs
+	url = https://github.com/membrane-io/example-rss-hn-jobs.git
+[submodule "example-twitter-bot-ai"]
+	path = example-twitter-bot-ai
+	url = https://github.com/membrane-io/example-twitter-bot-ai.git
+[submodule "meta-driver"]
+	path = meta-driver
+	url = https://github.com/membrane-io/membrane-meta-driver.git
+[submodule "example-airtable-to-email"]
+	path = example-airtable-to-email
+	url = https://github.com/membrane-io/example-airtable-to-email.git
+[submodule "example-event-reminder"]
+	path = example-event-reminder
+	url = https://github.com/membrane-io/example-event-reminder.git
+[submodule "example-react-ssr"]
+	path = example-react-ssr
+	url = https://github.com/membrane-io/example-react-ssr
+[submodule "typechat"]
+	path = typechat
+	url = https://github.com/membrane-io/membrane-driver-typechat.git
+[submodule "anthropic"]
+	path = anthropic
+	url = https://github.com/membrane-io/membrane-driver-anthropic.git
+[submodule "pagerduty"]
+	path = pagerduty
+	url = https://github.com/membrane-io/membrane-driver-pagerduty
+[submodule "mistral"]
+	path = mistral
+	url = https://github.com/membrane-io/membrane-driver-mistral
+[submodule "forms"]
+	path = forms
+	url = https://github.com/juancampa/membrane-program-forms
+[submodule "resend"]
+	path = resend
+	url = https://github.com/membrane-io/membrane-driver-resend
+[submodule "user"]
+	path = user
+	url = https://github.com/membrane-io/user
+[submodule "height"]
+	path = height
+	url = https://github.com/membrane-io/membrane-driver-height
+[submodule "getting-started"]
+	path = getting-started
+	url = https://github.com/membrane-io/membrane-getting-started.git
+[submodule "oura"]
+	path = oura
+	url = https://github.com/membrane-io/membrane-driver-oura.git

@@ -1,0 +1,919 @@
+{
+  "expressions": {
+    "user": {
+      "description": "User",
+      "type": "text",
+      "searchIn": "https://app.slack.com",
+      "regex": "data-message-sender=\"([^\"]+)"
+    },
+    "channel": {
+      "description": "Conversation",
+      "type": "text",
+      "searchIn": "https://app.slack.com",
+      "regex": "data-qa-channel-sidebar-channel-id=\"([^\"]+)"
+    },
+    "message": {
+      "description": "Message",
+      "type": "text",
+      "searchIn": "https://app.slack.com",
+      "regex": "data-ts=\"([^\"]+)"
+    }
+  },
+  "dependencies": {
+    "http": "http:"
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Slack Driver",
+        "actions": [
+          {
+            "name": "configure",
+            "type": "String",
+            "params": [
+              {
+                "name": "apiToken",
+                "type": "String"
+              }
+            ],
+            "description": "Sets up the Slack API token for enabling interactions with Slack."
+          },
+          {
+            "name": "endpoint",
+            "type": "String",
+            "hints": {
+              "hidden": true
+            },
+            "params": [
+              {
+                "name": "method",
+                "type": "String"
+              },
+              {
+                "name": "body",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "path",
+                "type": "String"
+              },
+              {
+                "name": "query",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "headers",
+                "type": "String"
+              }
+            ],
+            "description": "Handles incoming HTTP requests to the Slack driver."
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Current operational status of the Slack driver."
+          },
+          {
+            "name": "channels",
+            "type": "ChannelCollection",
+            "description": "A collection of Slack channels that can be interacted with."
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "description": "A collection of Slack users available for messaging and interactions."
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": true
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "User"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "A list of custom parsing rules for Slack message processing."
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "A suite of tests to verify the Slack driver's functionality and integration."
+          }
+        ]
+      },
+      {
+        "name": "ChannelCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Channel",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "Fetches a specific Slack channel by its unique identifier."
+          },
+          {
+            "name": "page",
+            "type": "ChannelPage",
+            "params": [
+              {
+                "name": "cursor",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true
+              }
+            ],
+            "description": "Retrieves a paginated list of Slack channels."
+          }
+        ],
+        "actions": [
+          {
+            "name": "create",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "is_private",
+                "type": "Boolean",
+                "optional": true
+              }
+            ],
+            "description": "Creates a new Slack channel with specified name and privacy settings."
+          }
+        ],
+        "description": "Collection of channels in the Slack workspace."
+      },
+      {
+        "name": "ChannelPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Channel",
+            "description": "Channels present on the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "ChannelPage",
+            "description": "Link to the next set of channels in the pagination sequence."
+          }
+        ],
+        "description": "Page of channels in the Slack workspace."
+      },
+      {
+        "name": "Channel",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the channel within the Slack workspace."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The name of the channel within the Slack workspace."
+          },
+          {
+            "name": "is_channel",
+            "type": "Boolean",
+            "description": "Indicates whether the channel is a public channel in the Slack workspace."
+          },
+          {
+            "name": "is_group",
+            "type": "Boolean",
+            "description": "Indicates whether the channel is a private group in the Slack workspace."
+          },
+          {
+            "name": "is_im",
+            "type": "Boolean",
+            "description": "Indicates whether the channel is a direct message (IM) channel in the Slack workspace."
+          },
+          {
+            "name": "is_mpim",
+            "type": "Boolean",
+            "description": "Indicates whether the channel is a multi-party IM (MPIM) channel in the Slack workspace."
+          },
+          {
+            "name": "is_private",
+            "type": "Boolean",
+            "description": "Indicates whether the channel is a private channel in the Slack workspace."
+          },
+          {
+            "name": "created",
+            "type": "Int",
+            "description": "Timestamp of when the channel was created."
+          },
+          {
+            "name": "is_archived",
+            "type": "Boolean",
+            "description": "Indicates if the channel has been archived."
+          },
+          {
+            "name": "is_general",
+            "type": "Boolean",
+            "description": "Denotes if the channel is the general channel for the workspace."
+          },
+          {
+            "name": "unlinked",
+            "type": "Int",
+            "description": "Timestamp of when the channel was unlinked."
+          },
+          {
+            "name": "is_shared",
+            "type": "Boolean",
+            "description": "Indicates if the channel is shared with other workspaces."
+          },
+          {
+            "name": "is_org_shared",
+            "type": "Boolean",
+            "description": "Indicates if the channel is shared across the organization."
+          },
+          {
+            "name": "is_pending_ext_shared",
+            "type": "Boolean",
+            "description": "Indicates if there is a pending external share of the channel."
+          },
+          {
+            "name": "is_read_only",
+            "type": "Boolean",
+            "description": "Indicates if the channel is read-only."
+          },
+          {
+            "name": "is_thread_only",
+            "type": "Boolean",
+            "description": "Indicates if the channel is thread-only."
+          },
+          {
+            "name": "is_member",
+            "type": "Boolean",
+            "description": "Indicates if the driver is a member of the channel."
+          },
+          {
+            "name": "is_ext_shared",
+            "type": "Boolean",
+            "description": "Indicates if the channel is externally shared."
+          },
+          {
+            "name": "is_non_threadable",
+            "type": "Boolean",
+            "description": "Indicates if the channel does not support threading."
+          },
+          {
+            "name": "shared_team_ids",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of team IDs with which the channel is shared."
+          },
+          {
+            "name": "pending_connected_team_ids",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of team IDs that have a pending connection to the channel."
+          },
+          {
+            "name": "previous_names",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of previous names the channel has had."
+          },
+          {
+            "name": "topic",
+            "type": "Topic"
+          },
+          {
+            "name": "purpose",
+            "type": "Topic"
+          },
+          {
+            "name": "members",
+            "type": "MemberCollection"
+          },
+          {
+            "name": "messages",
+            "type": "MessageCollection"
+          }
+        ],
+        "actions": [
+          {
+            "name": "invite",
+            "type": "Void",
+            "params": [
+              {
+                "name": "users",
+                "description": "A comma separated list of user IDs. Up to 30 users may be listed.",
+                "type": "String"
+              }
+            ],
+            "description": "Invites users to a Slack channel using their user IDs."
+          },
+          {
+            "name": "sendMessage",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String"
+              },
+              {
+                "name": "attachments",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "blocks",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Sends a message to the Slack channel with optional attachments and blocks."
+          },
+          {
+            "name": "leave",
+            "type": "Void",
+            "description": "Exits the Slack channel, removing the driver from members."
+          }
+        ],
+        "events": [
+          {
+            "name": "onSlashCommand",
+            "type": "SlashCommand",
+            "description": "Triggered when a slash command is used in a Slack channel."
+          },
+          {
+            "name": "onEvent",
+            "type": "WebhookEvent",
+            "description": "Triggered when a webhook event occurs in a Slack channel."
+          }
+        ],
+        "description": "Representation of a Slack channel."
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "Retrieves a single user from the Slack workspace by their unique ID."
+          },
+          {
+            "name": "page",
+            "type": "UserPage",
+            "params": [
+              {
+                "name": "cursor",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true
+              }
+            ],
+            "description": "Provides a paginated list of users from the Slack workspace."
+          }
+        ],
+        "description": "Collection of users in the Slack workspace."
+      },
+      {
+        "name": "UserPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "User",
+            "description": "List of users included in the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "UserPage",
+            "description": "Reference to the next page of users for continued pagination."
+          }
+        ],
+        "description": "Page of users in the Slack workspace."
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            }
+          },
+          {
+            "name": "team_id",
+            "type": "String",
+            "description": "The unique identifier of the Slack team to which the user belongs."
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean",
+            "description": "Indicates whether the user has been deleted from the Slack workspace."
+          },
+          {
+            "name": "color",
+            "type": "String",
+            "description": "The user's associated color in the Slack workspace."
+          },
+          {
+            "name": "real_name",
+            "type": "String",
+            "description": "The real name of the user as provided in their Slack profile."
+          },
+          {
+            "name": "tz",
+            "type": "String",
+            "description": "The time zone identifier for the user's location."
+          },
+          {
+            "name": "tz_label",
+            "type": "String",
+            "description": "The label of the user's time zone."
+          },
+          {
+            "name": "tz_offset",
+            "type": "Int",
+            "description": "The time zone offset in seconds for the user's location."
+          },
+          {
+            "name": "is_admin",
+            "type": "Boolean",
+            "description": "Indicates if the user has admin privileges in the Slack workspace."
+          },
+          {
+            "name": "is_owner",
+            "type": "Boolean",
+            "description": "Indicates if the user is an owner of the Slack workspace."
+          },
+          {
+            "name": "is_primary_owner",
+            "type": "Boolean",
+            "description": "Indicates if the user is the primary owner of the Slack workspace."
+          },
+          {
+            "name": "is_restricted",
+            "type": "Boolean",
+            "description": "Indicates if the user has restricted access in the Slack workspace."
+          },
+          {
+            "name": "is_ultra_restricted",
+            "type": "Boolean",
+            "description": "Indicates if the user has ultra-restricted access in the Slack workspace."
+          },
+          {
+            "name": "is_bot",
+            "type": "Boolean",
+            "description": "Denotes if the user is a bot in the Slack workspace."
+          },
+          {
+            "name": "is_app_user",
+            "type": "Boolean",
+            "description": "Indicates if the user is an app user in the Slack workspace."
+          },
+          {
+            "name": "updated",
+            "type": "Int",
+            "description": "Timestamp of the last update to the user's profile."
+          },
+          {
+            "name": "has_2fa",
+            "type": "Boolean",
+            "description": "Indicates if the user has two-factor authentication enabled."
+          },
+          {
+            "name": "profile",
+            "type": "Profile",
+            "description": "Profile in the Membrane Slack Driver."
+          }
+        ],
+        "actions": [
+          {
+            "name": "sendMessage",
+            "type": "Void",
+            "params": [
+              {
+                "name": "text",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "attachments",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "blocks",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "channel",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Sends a direct message to a Slack user with optional formatting."
+          }
+        ],
+        "description": "Representation of a Slack user."
+      },
+      {
+        "name": "Profile",
+        "fields": [
+          {
+            "name": "real_name",
+            "type": "String",
+            "description": "The real name of the Slack user."
+          },
+          {
+            "name": "real_name_normalized",
+            "type": "String",
+            "description": "The normalized real name of the Slack user."
+          },
+          {
+            "name": "display_name",
+            "type": "String",
+            "description": "The display name of the Slack user."
+          },
+          {
+            "name": "display_name_normalized",
+            "type": "String",
+            "description": "The normalized display name of the Slack user."
+          },
+          {
+            "name": "status_text",
+            "type": "String",
+            "description": "The status text of the Slack user."
+          },
+          {
+            "name": "status_emoji",
+            "type": "String",
+            "description": "The status emoji of the Slack user."
+          },
+          {
+            "name": "avatar_hash",
+            "type": "String",
+            "description": "The avatar hash of the Slack user."
+          },
+          {
+            "name": "image_original",
+            "type": "String",
+            "description": "The original image of the Slack user."
+          },
+          {
+            "name": "email",
+            "type": "String",
+            "description": "The email of the Slack user."
+          },
+          {
+            "name": "image_24",
+            "type": "String",
+            "description": "The 24x24 image of the Slack user."
+          },
+          {
+            "name": "image_32",
+            "type": "String",
+            "description": "The 32x32 image of the Slack user."
+          },
+          {
+            "name": "image_48",
+            "type": "String",
+            "description": "The 48x48 image of the Slack user."
+          },
+          {
+            "name": "image_72",
+            "type": "String",
+            "description": "The 72x72 image of the Slack user."
+          },
+          {
+            "name": "image_192",
+            "type": "String",
+            "description": "The 192x192 image of the Slack user."
+          },
+          {
+            "name": "image_512",
+            "type": "String",
+            "description": "The 512x512 image of the Slack user."
+          }
+        ],
+        "description": "Profile information of a Slack user."
+      },
+      {
+        "name": "MemberCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "MemberPage",
+            "params": [
+              {
+                "name": "cursor",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "description": "Collection of members in a Slack channel."
+      },
+      {
+        "name": "MemberPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "User"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "MemberPage"
+          }
+        ],
+        "description": "Page of members in a Slack channel."
+      },
+      {
+        "name": "MessageCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Message",
+            "params": [
+              {
+                "name": "ts",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "page",
+            "type": "MessagePage",
+            "params": [
+              {
+                "name": "latest",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "description": "Collection of messages in a Slack channel."
+      },
+      {
+        "name": "MessagePage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Message"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "MemberPage"
+          }
+        ],
+        "description": "Page of messages in a Slack channel."
+      },
+      {
+        "name": "Message",
+        "fields": [
+          {
+            "name": "type",
+            "type": "String",
+            "description": "The type of the message."
+          },
+          {
+            "name": "subtype",
+            "type": "String",
+            "description": "The subtype of the message."
+          },
+          {
+            "name": "ts",
+            "type": "String",
+            "description": "The timestamp of the message."
+          },
+          {
+            "name": "user",
+            "type": "String",
+            "description": "The user who sent the message."
+          },
+          {
+            "name": "username",
+            "type": "String",
+            "description": "The username of the user who sent the message."
+          },
+          {
+            "name": "bot_id",
+            "type": "String",
+            "description": "The ID of the bot that sent the message."
+          },
+          {
+            "name": "deleted_ts",
+            "type": "String",
+            "description": "The timestamp when the message was deleted."
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The text content of the message."
+          },
+          {
+            "name": "bot_profile",
+            "type": "BotProfile",
+            "description": "The profile of the bot that sent the message."
+          },
+          {
+            "name": "reactions",
+            "type": "List",
+            "ofType": "Reaction",
+            "description": "The reactions to the message."
+          }
+        ],
+        "description": "Representation of a message in a Slack channel."
+      },
+      {
+        "name": "BotProfile",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String"
+          },
+          {
+            "name": "deleted",
+            "type": "Boolean"
+          },
+          {
+            "name": "name",
+            "type": "String"
+          },
+          {
+            "name": "updated",
+            "type": "Int"
+          },
+          {
+            "name": "app_id",
+            "type": "String"
+          },
+          {
+            "name": "team_id",
+            "type": "String"
+          }
+        ],
+        "description": "Profile information of a Slack bot."
+      },
+      {
+        "name": "Reaction",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "description": "Reaction name in the Membrane Slack Driver."
+          },
+          {
+            "name": "count",
+            "type": "Int",
+            "description": "Number of reactions in the Membrane Slack Driver."
+          },
+          {
+            "name": "users",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of users who reacted in the Membrane Slack Driver."
+          }
+        ],
+        "description": "Representation of a reaction to a message in a Slack channel."
+      },
+      {
+        "name": "Topic",
+        "fields": [
+          {
+            "name": "value",
+            "type": "String",
+            "description": "Topic value in the Membrane Slack Driver."
+          },
+          {
+            "name": "creator",
+            "type": "String",
+            "description": "Creator of the topic in the Membrane Slack Driver."
+          },
+          {
+            "name": "last_set",
+            "type": "Int",
+            "description": "Timestamp of the last set topic in the Membrane Slack Driver."
+          }
+        ],
+        "description": "Representation of a topic in a Slack channel."
+      },
+      {
+        "name": "SlashCommand",
+        "fields": [
+          {
+            "name": "url",
+            "type": "String",
+            "description": "URL associated with the slash command in the Membrane Slack Driver."
+          },
+          {
+            "name": "text",
+            "type": "String",
+            "description": "Text associated with the slash command in the Membrane Slack Driver."
+          }
+        ],
+        "description": "Representation of a slash command in a Slack channel."
+      },
+      {
+        "name": "WebhookEvent",
+        "fields": [
+          {
+            "name": "event",
+            "type": "String"
+          }
+        ],
+        "description": "Representation of a webhook event in a Slack channel."
+      },
+      {
+        "name": "Member",
+        "description": "Representation of a member in a Slack channel."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetChannels",
+            "type": "Boolean"
+          },
+          {
+            "name": "testGetUsers",
+            "type": "Boolean"
+          }
+        ],
+        "description": "Representation of a test case for the Slack driver."
+      }
+    ]
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "actions": [
+          {
+            "description": "Configures the OpenAI API key to enable using their models.",
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "key",
+                "type": "String",
+                "description": "OpenAI API key."
+              }
+            ]
+          }
+        ],
+        "fields": [
+          {
+            "name": "status",
+            "type": "String",
+            "description": "The current status of the program."
+          },
+          {
+            "name": "translator",
+            "type": "Translator",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "A translator identified by its id."
+          }
+        ],
+        "events": [
+          {
+            "name": "statusChanged",
+            "type": "Void",
+            "description": "Triggered when the status of the program changes."
+          }
+        ],
+        "description": "Typechat Driver"
+      },
+      {
+        "name": "Translator",
+        "actions": [
+          {
+            "name": "translate",
+            "type": "Json",
+            "description": "Translates a prompt into a JSON value that matches the provided TypeScript schema.",
+            "params": [
+              {
+                "name": "prompt",
+                "type": "String",
+                "description": "The prompt to translate."
+              }
+            ]
+          },
+          {
+            "name": "patch",
+            "type": "Void",
+            "params": [
+              {
+                "name": "model",
+                "type": "String",
+                "description": "OpenAI model to use (e.g. gpt-3.5-turbo, gpt-4).",
+                "optional": true
+              },
+              {
+                "name": "schema",
+                "type": "String",
+                "description": "A string containing the TypeScript source code for the JSON schema. The target type must be exported.",
+                "optional": true
+              },
+              {
+                "name": "typeName",
+                "type": "String",
+                "description": "The name of the JSON target type in the schema.",
+                "optional": true
+              },
+              {
+                "name": "dependencyName",
+                "type": "String",
+                "description": "Name of a dependency of this program to use when using a custom model. Otherwise OpenAI will be used.",
+                "optional": true
+              }
+            ],
+            "hints": {
+              "role": "patch"
+            }
+          },
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "model",
+                "type": "String",
+                "description": "OpenAI model to use (e.g. gpt-3.5-turbo, gpt-4).",
+                "optional": true
+              },
+              {
+                "name": "schema",
+                "type": "String",
+                "description": "A string containing the TypeScript source code for the JSON schema. The target type must be exported.",
+                "optional": true
+              },
+              {
+                "name": "typeName",
+                "type": "String",
+                "description": "The name of the JSON target type in the schema.",
+                "optional": true
+              },
+              {
+                "name": "dependencyName",
+                "type": "String",
+                "description": "Name of a dependency of this program to use when using a custom model. Otherwise OpenAI will be used.",
+                "optional": true
+              }
+            ],
+            "description": "Configures the translator with the specified OpenAI model and JSON schema."
+          }
+        ],
+        "fields": [
+          {
+            "name": "model",
+            "type": "String",
+            "description": "The OpenAI model used for translation."
+          },
+          {
+            "name": "schema",
+            "type": "String",
+            "description": "The JSON schema used for translation."
+          },
+          {
+            "name": "typeName",
+            "type": "String",
+            "description": "The name of the JSON target type in the schema."
+          },
+          {
+            "name": "dependencyName",
+            "type": "String"
+          }
+        ]
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:"
+  }
+}

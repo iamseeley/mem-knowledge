@@ -1,0 +1,977 @@
+{
+  "expressions": {
+    "guild": {
+      "description": "Guild",
+      "type": "text",
+      "searchIn": "https://discord.com",
+      "regex": "data-list-item-id=\"guildsnav___([0-9]{18})+"
+    },
+    "channel": {
+      "description": "Channel",
+      "type": "url",
+      "searchIn": "https://discord.com",
+      "regex": "https://discord.com/channels/([0-9]{18})+/([0-9]{18})+"
+    },
+    "user": {
+      "description": "User",
+      "type": "text",
+      "searchIn": "https://discord.com",
+      "regex": "/avatars/[0-9]+"
+    },
+    "message": {
+      "description": "Channel Message",
+      "type": "text",
+      "searchIn": "https://discord.com",
+      "regex": "id=\"chat-messages-[0-9]+-[0-9]+"
+    }
+  },
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "fields": [
+          {
+            "name": "guilds",
+            "type": "GuildCollection",
+            "description": "Collection of Guilds"
+          },
+          {
+            "name": "me",
+            "type": "User",
+            "description": "Current User"
+          },
+          {
+            "name": "users",
+            "type": "UserCollection",
+            "description": "Collection of Users"
+          },
+          {
+            "name": "parse",
+            "type": "List",
+            "hints": {
+              "hidden": true
+            },
+            "ofType": {
+              "type": "Ref",
+              "ofType": "Guild"
+            },
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "value",
+                "type": "String"
+              }
+            ],
+            "description": "List of Parsed Items"
+          },
+          {
+            "name": "status",
+            "type": "String",
+            "description": "Status of the Driver"
+          },
+          {
+            "name": "tests",
+            "type": "Tests",
+            "description": "Test Cases"
+          }
+        ],
+        "actions": [
+          {
+            "name": "configure",
+            "type": "Void",
+            "params": [
+              {
+                "name": "clientId",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "clientSecret",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "publicKey",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "token",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": "Configure the Discord Driver"
+          },
+          {
+            "name": "followUpWebhook",
+            "type": "Void",
+            "params": [
+              {
+                "name": "application_id",
+                "type": "String"
+              },
+              {
+                "name": "token",
+                "type": "String"
+              },
+              {
+                "name": "message",
+                "type": "Json"
+              }
+            ],
+            "description": "Send Follow-Up Webhook"
+          }
+        ],
+        "description": "Discord Driver"
+      },
+      {
+        "name": "MemberCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Member",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "page",
+            "type": "MemberPage",
+            "params": [
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "after",
+                "type": "String",
+                "optional": true
+              }
+            ],
+            "description": ""
+          }
+        ],
+        "description": ""
+      },
+      {
+        "name": "MemberPage",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Member",
+            "description": "A list of Discord server members on the current page."
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "MemberPage",
+            "description": "A reference to the next page of Discord server members, if available."
+          }
+        ],
+        "description": "Represents a pageable list of Discord server members."
+      },
+      {
+        "name": "CommandCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Command",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Command",
+            "description": ""
+          }
+        ],
+        "description": ""
+      },
+      {
+        "name": "UserCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "User",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": "Retrieve data for a single user by their Discord ID"
+          }
+        ],
+        "description": "Collection of Discord users"
+      },
+      {
+        "name": "GuildCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Guild",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Guild",
+            "description": ""
+          }
+        ],
+        "description": ""
+      },
+      {
+        "name": "Guild",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier for the Discord server."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Name of the Discord server."
+          },
+          {
+            "name": "icon",
+            "type": "String",
+            "description": "URL of the server's icon."
+          },
+          {
+            "name": "owner",
+            "type": "Boolean",
+            "description": "Flag indicating if the authenticated user owns the server."
+          },
+          {
+            "name": "permissions",
+            "type": "Int",
+            "description": "Bit set representing the server's permissions."
+          },
+          {
+            "name": "features",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of special features enabled for the server."
+          },
+          {
+            "name": "channels",
+            "type": "ChannelCollection",
+            "description": "Collection of channels within the server."
+          },
+          {
+            "name": "commands",
+            "type": "CommandCollection",
+            "description": "Collection of custom commands available in the server."
+          },
+          {
+            "name": "members",
+            "type": "MemberCollection",
+            "description": "Collection of members who are part of the server."
+          }
+        ],
+        "actions": [
+          {
+            "name": "createCommand",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "description": "Name assigned to the new command."
+              },
+              {
+                "name": "description",
+                "type": "String",
+                "optional": true,
+                "description": "Short description for the new command."
+              },
+              {
+                "name": "options",
+                "description": "JSON-formatted options to customize the command.",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "type",
+                "type": "Int",
+                "optional": true,
+                "description": "Integer indicating the type of the command to be created."
+              }
+            ],
+            "description": "Action to create a new custom command for the server."
+          }
+        ],
+        "events": [
+          {
+            "name": "onSlashCommand",
+            "type": "SlashCommand",
+            "description": "Event emitted when a slash command is invoked in the server."
+          }
+        ],
+        "description": "Type representing a Discord server, including its properties, channels, commands, and members."
+      },
+      {
+        "name": "ChannelCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Channel",
+            "params": [
+              {
+                "name": "id",
+                "type": "String"
+              }
+            ],
+            "description": ""
+          },
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Channel",
+            "description": ""
+          }
+        ],
+        "description": ""
+      },
+      {
+        "name": "MessageCollection",
+        "fields": [
+          {
+            "name": "one",
+            "type": "Message",
+            "params": [
+              {
+                "name": "id",
+                "type": "String",
+                "description": "Identifier of the message to be retrieved from Discord."
+              }
+            ],
+            "description": "Fetches a specific Discord message using its unique ID."
+          },
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Message",
+            "params": [
+              {
+                "name": "limit",
+                "type": "Int",
+                "optional": true,
+                "description": "Limits the number of messages returned in the list. If not specified, a default limit is applied."
+              },
+              {
+                "name": "around",
+                "type": "String",
+                "optional": true,
+                "description": "Centers the retrieved message list around the message with the specified ID."
+              },
+              {
+                "name": "before",
+                "type": "String",
+                "optional": true,
+                "description": "Retrieves messages posted before the message with the specified ID."
+              },
+              {
+                "name": "after",
+                "type": "String",
+                "optional": true,
+                "description": "Retrieves messages posted after the message with the specified ID."
+              }
+            ],
+            "description": "Obtains a list of Discord messages, offering several filter criteria such as message ID ranges and limits."
+          }
+        ],
+        "description": "Collection of messages available in Discord."
+      },
+      {
+        "name": "Channel",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The unique identifier of the channel."
+          },
+          {
+            "name": "last_message_id",
+            "type": "String",
+            "description": "The unique identifier of the last message sent in the channel."
+          },
+          {
+            "name": "rate_limit_per_user",
+            "type": "Int",
+            "description": "The rate limit for users in the channel."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The name of the channel."
+          },
+          {
+            "name": "type",
+            "type": "Int",
+            "description": "The type of the channel."
+          },
+          {
+            "name": "position",
+            "type": "Int",
+            "description": "The position of the channel."
+          },
+          {
+            "name": "flags",
+            "type": "Int",
+            "description": "The flags associated with the channel."
+          },
+          {
+            "name": "nsfw",
+            "type": "Boolean",
+            "description": "Indicates if the channel is NSFW (Not Safe For Work)."
+          },
+          {
+            "name": "parend_id",
+            "type": "String",
+            "description": "The parent channel ID, if the channel is a sub-channel."
+          },
+          {
+            "name": "topic",
+            "type": "String",
+            "description": "The topic of the channel."
+          },
+          {
+            "name": "guild_id",
+            "type": "String",
+            "description": "The unique identifier of the guild to which the channel belongs."
+          },
+          {
+            "name": "permissions_overwrites",
+            "type": "List",
+            "ofType": "String",
+            "description": "The list of permission overwrites for the channel."
+          },
+          {
+            "name": "messages",
+            "type": "MessageCollection",
+            "description": "A collection of messages sent in the channel."
+          }
+        ],
+        "actions": [
+          {
+            "name": "sendMessage",
+            "type": "Json",
+            "params": [
+              {
+                "name": "content",
+                "description": "The content of the message to send.",
+                "type": "String"
+              },
+              {
+                "name": "payload_json",
+                "description": "The payload of the message in JSON format.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "tts",
+                "type": "Boolean",
+                "optional": true,
+                "description": "Enable TTS (Text-to-Speech) for the message."
+              },
+              {
+                "name": "flags",
+                "type": "Int",
+                "optional": true,
+                "description": "The flags to be applied to the message."
+              },
+              {
+                "name": "sticker_ids",
+                "description": "The IDs of the stickers to be sent with the message.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "components",
+                "description": "The components to be included in the message.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "embeds",
+                "description": "The embeds to be included in the message.",
+                "type": "String",
+                "optional": true
+              },
+              {
+                "name": "message_reference",
+                "type": "Json",
+                "optional": true
+              },
+              {
+                "name": "allowed_mentions",
+                "type": "Json",
+                "optional": true
+              }
+            ],
+            "description": "Send a message to the channel.",
+            "ofType": "Json"
+          }
+        ],
+        "description": "Represents a Discord channel."
+      },
+      {
+        "name": "Message",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier for the message."
+          },
+          {
+            "name": "type",
+            "type": "Int",
+            "description": "Type of the message indicating whether it's a default message, a recipient add, etc."
+          },
+          {
+            "name": "content",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Text content of the message."
+          },
+          {
+            "name": "channel_id",
+            "type": "String",
+            "description": "Identifier of the channel where the message was posted."
+          },
+          {
+            "name": "pinned",
+            "type": "Boolean",
+            "description": "Indicates if the message is pinned in the channel."
+          },
+          {
+            "name": "mention_everyone",
+            "type": "Boolean",
+            "description": "Indicates if the message mentions everyone in the channel."
+          },
+          {
+            "name": "tts",
+            "type": "Boolean",
+            "description": "Indicates if text-to-speech is enabled for the message."
+          },
+          {
+            "name": "timestamp",
+            "type": "String",
+            "description": "Timestamp of when the message was sent."
+          },
+          {
+            "name": "edited_timestamp",
+            "type": "String",
+            "description": "Timestamp of when the message was last edited."
+          },
+          {
+            "name": "flags",
+            "type": "Int",
+            "description": "Flags associated with the message for various features and states."
+          },
+          {
+            "name": "author",
+            "type": "User",
+            "description": "User object representing the author of the message."
+          },
+          {
+            "name": "attachments",
+            "type": "Json",
+            "ofType": "String",
+            "description": "Attachments included with the message as a JSON string."
+          },
+          {
+            "name": "embeds",
+            "type": "Json",
+            "ofType": "String",
+            "description": "Embedded content such as images or videos included in the message as a JSON string."
+          },
+          {
+            "name": "mentions",
+            "type": "List",
+            "ofType": "User",
+            "description": "List of user objects representing the users mentioned in the message."
+          },
+          {
+            "name": "mention_roles",
+            "type": "Json",
+            "ofType": "String",
+            "description": "Roles mentioned in the message as a JSON string of IDs."
+          },
+          {
+            "name": "reactions",
+            "type": "List",
+            "ofType": "Reaction",
+            "description": "List of reactions added to the message."
+          },
+          {
+            "name": "reactionsByEmote",
+            "type": "List",
+            "params": [
+              {
+                "name": "emote_str",
+                "type": "String"
+              }
+            ],
+            "ofType": "User"
+          }
+        ],
+        "description": "Represents a message posted in a Discord channel.",
+        "actions": [
+          {
+            "name": "postReaction",
+            "type": "Void",
+            "params": [
+              {
+                "name": "emote_str",
+                "type": "String"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Member",
+        "fields": [
+          {
+            "name": "user",
+            "type": "User",
+            "description": "Discord user information associated with the member."
+          },
+          {
+            "name": "nick",
+            "hints": {
+              "primary": true
+            },
+            "type": "String",
+            "description": "The member's chosen nickname within the Discord server."
+          },
+          {
+            "name": "roles",
+            "type": "List",
+            "ofType": "String",
+            "description": "Identifiers for each role assigned to the member in the Discord server."
+          },
+          {
+            "name": "joined_at",
+            "hints": {
+              "primary": true
+            },
+            "type": "String",
+            "description": "Timestamp marking when the member first joined the Discord server."
+          },
+          {
+            "name": "premium_since",
+            "type": "String",
+            "description": "Timestamp indicating the start of the member's Nitro boost for the server."
+          },
+          {
+            "name": "deaf",
+            "type": "Boolean",
+            "description": "States if the member is deafened by the server, preventing them from hearing others."
+          },
+          {
+            "name": "mute",
+            "type": "Boolean",
+            "description": "Indicates if the member is muted by the server, preventing them from speaking."
+          },
+          {
+            "name": "pending",
+            "type": "Boolean",
+            "description": "Reflects whether the member has yet to complete required Membership Screening before full participation."
+          },
+          {
+            "name": "avatar",
+            "type": "String",
+            "description": "Direct link to the member's custom avatar within the server, if set."
+          },
+          {
+            "name": "flags",
+            "type": "Int",
+            "description": "Numerical value representing specific permissions or features available to the member."
+          }
+        ],
+        "description": "Represents the details of a Discord server member."
+      },
+      {
+        "name": "User",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "The Discord user's unique identifier."
+          },
+          {
+            "name": "username",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The username of the Discord user, not including the discriminator part."
+          },
+          {
+            "name": "display_name",
+            "type": "String",
+            "description": "The custom or server-specific nickname of the Discord user."
+          },
+          {
+            "name": "avatar",
+            "type": "String",
+            "description": "URL linking to the Discord user's profile picture."
+          },
+          {
+            "name": "avatar_decoration",
+            "type": "String",
+            "description": "Additional graphical elements applied to the user's avatar on Discord."
+          },
+          {
+            "name": "discriminator",
+            "type": "String",
+            "description": "A unique four-digit tag associated with the user's username."
+          },
+          {
+            "name": "public_flags",
+            "type": "Int",
+            "description": "Binary flags representing the achievements and statuses of the Discord user."
+          },
+          {
+            "name": "bot",
+            "type": "Boolean",
+            "description": "A boolean indicating if the user is an automated bot account."
+          }
+        ],
+        "description": "Represents a user on the Discord platform, including their basic profile information."
+      },
+      {
+        "name": "Reaction",
+        "fields": [
+          {
+            "name": "count",
+            "type": "Int",
+            "description": "The number of times the specific emoji has been used as a reaction"
+          },
+          {
+            "name": "me",
+            "type": "Boolean",
+            "description": "Indicates whether the current user has reacted using the emoji"
+          },
+          {
+            "name": "emoji",
+            "type": "Emoji",
+            "description": "The emoji used to react to the message"
+          }
+        ],
+        "description": "Represents a reaction made to a message in Discord"
+      },
+      {
+        "name": "Command",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The unique name of the command."
+          },
+          {
+            "name": "description",
+            "type": "String",
+            "description": "A brief explanation of what the command does."
+          },
+          {
+            "name": "default_member_permissions",
+            "type": "String",
+            "description": "Permissions required for a server member to use the command."
+          },
+          {
+            "name": "default_permission",
+            "type": "Boolean",
+            "description": "Indicates whether the command is enabled by default for everyone."
+          },
+          {
+            "name": "type",
+            "type": "Int",
+            "description": "The type of command, represented as an integer."
+          },
+          {
+            "name": "nsfw",
+            "type": "Boolean",
+            "description": "Flag indicating whether the command is Not Safe For Work."
+          },
+          {
+            "name": "options",
+            "type": "List",
+            "ofType": "String",
+            "description": "A list of options for the command."
+          }
+        ],
+        "actions": [
+          {
+            "name": "delete",
+            "type": "Void",
+            "description": "Deletes the command from the Discord environment."
+          }
+        ],
+        "description": "Represents a command in the Discord environment."
+      },
+      {
+        "name": "Emoji",
+        "fields": [
+          {
+            "name": "id",
+            "type": "String",
+            "description": "Unique identifier for the emoji."
+          },
+          {
+            "name": "user",
+            "type": "User",
+            "description": "User who uploaded the emoji."
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "description": "Official name of the emoji."
+          },
+          {
+            "name": "animated",
+            "type": "Boolean",
+            "description": "Flag indicating if the emoji has animation."
+          },
+          {
+            "name": "available",
+            "type": "Boolean",
+            "description": "Availability status of the emoji for use."
+          },
+          {
+            "name": "require_colons",
+            "type": "Boolean",
+            "description": "Whether colons are required for the emoji's use."
+          },
+          {
+            "name": "managed",
+            "type": "Boolean",
+            "description": "Indicates if an integration or bot manages the emoji."
+          },
+          {
+            "name": "roles",
+            "type": "List",
+            "ofType": "String",
+            "description": "List of roles with access to the emoji."
+          }
+        ],
+        "description": "Represents a custom Discord emoji."
+      },
+      {
+        "name": "SlashCommand",
+        "fields": [
+          {
+            "name": "user",
+            "type": "User",
+            "description": "The Discord user who executed the slash command."
+          },
+          {
+            "name": "application_id",
+            "type": "String",
+            "description": "ID of the Discord application to which the slash command is associated."
+          },
+          {
+            "name": "token",
+            "type": "String",
+            "description": "Authentication token for verifying and responding to the slash command interaction."
+          },
+          {
+            "name": "options",
+            "type": "String",
+            "description": "Parameters provided by the user when invoking the slash command."
+          }
+        ],
+        "description": "Represents a Discord interaction where a user invokes a command via a special text trigger."
+      },
+      {
+        "name": "CommandOption",
+        "fields": [
+          {
+            "name": "name",
+            "type": "String",
+            "description": "The name of the command option."
+          },
+          {
+            "name": "type",
+            "type": "String",
+            "description": "The type of the command option."
+          },
+          {
+            "name": "value",
+            "type": "String",
+            "description": "The value of the command option."
+          }
+        ],
+        "description": "Represents an option provided in a Discord command."
+      },
+      {
+        "name": "Tests",
+        "actions": [
+          {
+            "name": "testGetGuilds",
+            "type": "Boolean",
+            "description": "Action to test the retrieval of guilds from Discord."
+          },
+          {
+            "name": "ping",
+            "type": "Boolean",
+            "description": "Action to test the Discord bot's responsiveness."
+          },
+          {
+            "name": "testGetUsers",
+            "type": "Boolean",
+            "description": "Action to test the retrieval of users from Discord."
+          },
+          {
+            "name": "testGetChannels",
+            "type": "Boolean",
+            "description": "Action to test the retrieval of channels from Discord."
+          }
+        ],
+        "description": "Type used for executing test actions related to Discord functionality."
+      }
+    ]
+  },
+  "dependencies": {
+    "http": "http:",
+    "endpoint": "sys-process:endpointUrl"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "example-update-cargo-version",
+  "dependencies": {
+    "@iarna/toml": "^2.2.5"
+  }
+}

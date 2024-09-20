@@ -1,0 +1,220 @@
+{
+  "dependencies": {},
+  "lockSchema": true,
+  "schema": {
+    "types": [
+      {
+        "name": "Root",
+        "description": "Store and manage nodes for future use",
+        "actions": [
+          {
+            "name": "put",
+            "description": "Puts the provided node in your drawer, optionally giving it a name",
+            "type": "String",
+            "params": [
+              {
+                "name": "name",
+                "type": "String",
+                "optional": false
+              },
+              {
+                "name": "node",
+                "type": "Ref",
+                "ofType": "Void"
+              },
+              {
+                "name": "x",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "y",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "width",
+                "type": "Int",
+                "optional": true
+              },
+              {
+                "name": "height",
+                "type": "Int",
+                "optional": true
+              }
+            ],
+            "hints": {}
+          },
+          {
+            "name": "remove",
+            "description": "Removes a stored node by name",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              }
+            ]
+          },
+          {
+            "name": "rename",
+            "type": "Void",
+            "params": [
+              {
+                "name": "oldName",
+                "type": "String"
+              },
+              {
+                "name": "newName",
+                "type": "String"
+              }
+            ],
+            "description": "Renames a stored node by name"
+          },
+          {
+            "name": "removeMatching",
+            "type": "Void",
+            "params": [
+              {
+                "name": "regex",
+                "type": "String"
+              }
+            ],
+            "description": "Removes stored nodes matching a provided regex pattern"
+          },
+          {
+            "name": "move",
+            "type": "Void",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              },
+              {
+                "name": "x",
+                "type": "Int"
+              },
+              {
+                "name": "y",
+                "type": "Int"
+              },
+              {
+                "name": "width",
+                "type": "Int"
+              },
+              {
+                "name": "height",
+                "type": "Int"
+              }
+            ],
+            "description": "Moves a stored node to a new position"
+          }
+        ],
+        "fields": [
+          {
+            "name": "one",
+            "description": "The collection of stored nodes, accessible by name",
+            "type": "Ref",
+            "ofType": "String",
+            "params": [
+              {
+                "name": "name",
+                "type": "String"
+              }
+            ],
+            "hints": {}
+          },
+          {
+            "name": "page",
+            "description": "A page of stored nodes, optionally filtered by tag",
+            "type": "Page",
+            "hints": {},
+            "params": [
+              {
+                "name": "tag",
+                "type": "String",
+                "optional": true
+              }
+            ]
+          }
+        ],
+        "events": []
+      },
+      {
+        "name": "Page",
+        "fields": [
+          {
+            "name": "items",
+            "type": "List",
+            "ofType": "Item"
+          },
+          {
+            "name": "next",
+            "type": "Ref",
+            "ofType": "Page"
+          }
+        ]
+      },
+      {
+        "name": "Item",
+        "fields": [
+          {
+            "name": "gref",
+            "type": "Ref",
+            "ofType": "Item",
+            "description": "Reference to another item"
+          },
+          {
+            "name": "name",
+            "type": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "The name of the item"
+          },
+          {
+            "name": "node",
+            "type": "Ref",
+            "ofType": "String",
+            "hints": {
+              "primary": true
+            },
+            "description": "Reference to a node as a string"
+          },
+          {
+            "name": "x",
+            "type": "Float",
+            "hints": {
+              "primary": true
+            },
+            "description": "The x-coordinate of the item"
+          },
+          {
+            "name": "y",
+            "type": "Float",
+            "hints": {
+              "primary": true
+            },
+            "description": "The y-coordinate of the item"
+          },
+          {
+            "name": "width",
+            "type": "Float",
+            "hints": {
+              "primary": true
+            },
+            "description": "The width of the item"
+          },
+          {
+            "name": "height",
+            "type": "Float",
+            "hints": {
+              "primary": true
+            },
+            "description": "The height of the item"
+          }
+        ]
+      }
+    ]
+  }
+}

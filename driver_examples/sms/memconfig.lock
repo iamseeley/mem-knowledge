@@ -1,0 +1,57 @@
+{
+  "types": {
+    "sys_sms": {
+      "gref_hash": "d3305f57bc48712c6bb4200f97f3e11c714bb29af6b788544ebfa663bdb3b70a",
+      "type": "sys-sms:Root"
+    }
+  },
+  "imports": [
+    {
+      "name": "sys-sms",
+      "schema": {
+        "types": [
+          {
+            "name": "Root",
+            "description": "",
+            "actions": [
+              {
+                "name": "configure",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "number",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              },
+              {
+                "name": "send",
+                "description": "",
+                "type": "Void",
+                "params": [
+                  {
+                    "name": "message",
+                    "description": "",
+                    "type": "String",
+                    "optional": false
+                  }
+                ],
+                "hints": {}
+              }
+            ],
+            "fields": [],
+            "events": []
+          }
+        ],
+        "imports": []
+      },
+      "source": {
+        "Program": "tbd"
+      }
+    }
+  ]
+}
